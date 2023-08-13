@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+## Project Objectives
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. **User Registration / Authentication** :
 
-## Available Scripts
+   - Simply the application will take **emailId** and **password** during the SignUp / SignIn.
+   - Email Id should be unique and if not , it will not be registred.
 
-In the project directory, you can run:
+2. **User Profile** :
 
-### `npm start`
+   - Enable users to create/edit their own profile.
+   - Profile page will consists of
+     - User's previous posts
+     - Posts which were liked by user
+     - Posts on which user replied to
+     - User Details
+       - Bio (View/Edit)
+       - DOB (view/Edit)
+       - Email (view/Edit)
+       - Name (view/Edit)
+       - Location (view/Edit)
+       - Change Password (Edit)
+       - Followers / Following (View / Edit)
+       - Primary Profile Picture (View/Edit)
+       - Secondary Profile Picture (View/Edit)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. **Posting Tweets** :
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+   - Allow users to compose and share tweets with their followers
+   - Support image uploads
 
-### `npm test`
+4. **Posted Tweet Actions** :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   - _Follow and Unfollow_ : Allow users to follow other users to see their tweets in their timeline, and let them unfollow if they choose.
+   - _Likes_ : Enable users to like (favorite) tweet they find interesting.
+   - _Comment Section_ : Something will be done.
+   - _Reply_ : User should be able to reply in the post as well as reply to the comments of other users.
 
-### `npm run build`
+5. **Dark Mode Support** : Consider providing a dark mode option for better user experience in low-light environments.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+6. **Activity Feed** : Display user activities such as new followers, liked tweets, and retweets in a dedicated activity feed.
