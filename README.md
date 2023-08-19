@@ -1,3 +1,9 @@
+# [TwitterX](https://twitter-frontend-utkarsh-gupta.netlify.app)
+
+## Description
+
+**Introducing TwitterX:** a lively social app highlighting my full-stack abilities. Users enjoy easy sign-up, personalized profiles, and creating tweets with images. They can follow, like, and comment, boosting interaction. The timeline shares updates from followed accounts. Dark mode improves usability, while the activity feed keeps users informed. Built with React, Node.js, Express, and MongoDB, TwitterX demonstrates my knack for crafting strong user-focused apps. Join [TwitterX](https://twitter-frontend-utkarsh-gupta.netlify.app) to see how I bring together frontend and backend expertise in this internal project.
+
 ## Project Objectives
 
 1. **User Registration / Authentication** :
@@ -40,9 +46,10 @@
      - If some user comments on some tweet , that tweet along with the the tweet on which user commented should get displyed on **follower's timeline**.
    - _Reply_ : User should be able to reply in the post as well as **reply** to the comments of other users.
 
-5. **Timeline** : 
+5. **Timeline** :
+
    - User should be able to see the **activities(New Post/Comment)** of all the accounts whom the user is **following**.
-   - For now load all the tweets in **decreasing order of timestamp**. 
+   - For now load all the tweets in **decreasing order of timestamp**.
    - For now load all tweets at once. **No Chunked Loading will be provided as of now**.
 
 6. **Dark Mode Support** : Consider providing a dark mode option for better user experience in low-light environments.
