@@ -3,8 +3,12 @@ import {
   ButtonComponent,
   TextFieldComponent,
 } from "../core-components";
+import { LogoComponent } from ".";
+import { useMediaQuery } from "@mui/material";
 
 const AuthDetails = (props: any) => {
+  const matches = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
+
   const renderAuthCardContent = () => {
     return (
       <>
@@ -53,9 +57,16 @@ const AuthDetails = (props: any) => {
     );
   };
 
+  const renderLogo = () => {
+    return <>{matches ? <LogoComponent width="5rem" /> : null}</>;
+  };
+
   return (
     <CardComponent
+      shadowLevel={4}
+      borderRadius={3}
       title="Join Today."
+      logo={renderLogo()}
       content={renderAuthCardContent()}
       actions={renderAuthCardActions()}
     ></CardComponent>
