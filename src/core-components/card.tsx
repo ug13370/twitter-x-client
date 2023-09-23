@@ -6,6 +6,7 @@ const styles = (padding: string, shadow: string, borderRadius: number) => {
   return {
     width: "24rem",
     padding: padding,
+    boxShadow: shadow,
     borderRadius: borderRadius,
     "> *:not(:last-child)": {
       padding: `0rem 0rem ${padding} 0rem`,
@@ -13,7 +14,6 @@ const styles = (padding: string, shadow: string, borderRadius: number) => {
     "> *": {
       padding: 0,
     },
-    boxShadow: shadow,
   };
 };
 
@@ -40,7 +40,7 @@ const CardComponent = (props: any) => {
         <CardContent>
           <StackComponent alignItems="flex-start">
             {logo}
-            {title && <Typography variant="h1">{title}</Typography>}
+            {title && <Typography variant="h2">{title}</Typography>}
             {content}
           </StackComponent>
         </CardContent>
