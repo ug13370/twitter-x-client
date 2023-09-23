@@ -16,8 +16,8 @@ const Logo = (props: any) => {
           y2="52.195"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#1a6dff" />
-          <stop offset="1" stop-color="#c822ff" />
+          <stop offset="0" stopColor="#1a6dff" />
+          <stop offset="1" stopColor="#c822ff" />
         </linearGradient>
         <path
           fill="url(#iS8U25XJCb2VBQOwbuAcra)"
@@ -31,8 +31,8 @@ const Logo = (props: any) => {
           y2="52.195"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#1a6dff" />
-          <stop offset="1" stop-color="#c822ff" />
+          <stop offset="0" stopColor="#1a6dff" />
+          <stop offset="1" stopColor="#c822ff" />
         </linearGradient>
         <path
           fill="url(#iS8U25XJCb2VBQOwbuAcrb)"
@@ -47,8 +47,8 @@ const Logo = (props: any) => {
             y2="21.528"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0" stop-color="#6dc7ff" />
-            <stop offset="1" stop-color="#e6abff" />
+            <stop offset="0" stopColor="#6dc7ff" />
+            <stop offset="1" stopColor="#e6abff" />
           </linearGradient>
           <circle cx="42" cy="20" r="2" fill="url(#iS8U25XJCb2VBQOwbuAcrc)" />
         </g>

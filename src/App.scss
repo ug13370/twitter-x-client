@@ -21,14 +21,4 @@ html {
     width: auto;
     height: 28rem;
   }
-
-  > .auth-details {
-    width: 24rem;
-    > * {
-      padding: 1rem 2rem 1rem 2rem;
-    }
-    >:last-child{
-      padding-bottom: 2rem;
-    }
-  }
 }
