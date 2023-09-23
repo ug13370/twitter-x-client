@@ -1,7 +1,19 @@
-import "./App.css";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import "./App.scss";
+import { AuthPage } from "./pages";
+import { ThemeSettings } from "./theme";
 
 function App() {
-  return <div>Main App</div>;
+  const theme = createTheme(ThemeSettings("light"));
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div>
+        <AuthPage />
+      </div>
+    </ThemeProvider>
+  );
 }
 
 export default App;

@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* Percentage of user's browser font-size setting */
+  font-size: 100%;
+}
+
+.auth-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+
+  height: 100vh;
+
+  > .logo svg {
+    width: auto;
+    height: 28rem;
+  }
+
+  > .auth-details {
+    width: 24rem;
+    > * {
+      padding: 1rem 2rem 1rem 2rem;
+    }
+    >:last-child{
+      padding-bottom: 2rem;
+    }
+  }
+}
