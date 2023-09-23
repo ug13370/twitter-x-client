@@ -54,21 +54,21 @@ const AuthCardContent = () => {
           id="name"
           required={true}
           label="Full Name"
-          borderRadius={1}
+          borderRadius={2}
         ></TextFieldComponent>
       )}
       <TextFieldComponent
         id="email_id"
         required={true}
         label="Email Id"
-        borderRadius={1}
+        borderRadius={2}
       ></TextFieldComponent>
       <TextFieldComponent
         id="password"
         required={true}
         type="password"
         label="Password"
-        borderRadius={1}
+        borderRadius={2}
         helperText="Password must be at least 2 characters long."
       ></TextFieldComponent>
     </>

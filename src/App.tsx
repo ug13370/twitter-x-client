@@ -4,7 +4,7 @@ import { AuthPage } from "./pages";
 import { ThemeSettings } from "./theme";
 
 function App() {
-  const theme = createTheme(ThemeSettings("light"));
+  const theme = createTheme(ThemeSettings("dark"));
 
   return (
     <ThemeProvider theme={theme}>
