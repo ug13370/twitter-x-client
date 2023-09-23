@@ -10,15 +10,9 @@ html {
 }
 
 .auth-page {
+  height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-
-  height: 100vh;
-
-  > .logo svg {
-    width: auto;
-    height: 28rem;
-  }
 }

@@ -3,8 +3,8 @@ import { AuthDetailsComponent, LogoComponent } from "../page-components";
 const Auth = (props: any) => {
   return (
     <div className="auth-page">
-      <LogoComponent className="logo"/>
-      <AuthDetailsComponent className="auth-details" />
+      <LogoComponent width="32rem" minWidth="20rem" />
+      <AuthDetailsComponent />
     </div>
   );
 };
