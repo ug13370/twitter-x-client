@@ -1,12 +1,12 @@
 import { TextField } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { ThemeSettings } from "../theme";
 
-const useStyles: any = makeStyles((theme: any) => ({
-  root: {
+const styles = (error: boolean, borderRadius: number) => {
+  return {
     "& .MuiInputBase-root": {
       backgroundColor: "transparent",
       border: "1.5px solid #cfd9de",
-      borderRadius: theme.shape.borderRadius,
+      borderRadius: borderRadius,
 
       "&:before": { borderBottom: "none" },
       "&:after": { borderBottom: "none" },
@@ -15,17 +15,17 @@ const useStyles: any = makeStyles((theme: any) => ({
         backgroundColor: "transparent",
       },
       "&.Mui-focused": {
-        borderColor: theme.palette.primary.main,
+        borderColor: (theme: any) => theme.palette.primary.main,
         backgroundColor: "transparent",
       },
     },
-  },
-  error: {
-    "& .MuiInputBase-root": {
-      borderColor: theme.palette.error.main,
-    },
-  },
-}));
+    ...(error && {
+      "& .MuiInputBase-root": {
+        borderColor: (theme: any) => theme.palette.error.main,
+      },
+    }),
+  };
+};
 
 const TextFieldComponent = (props: any) => {
   const {
@@ -38,13 +38,8 @@ const TextFieldComponent = (props: any) => {
     disabled = false,
     readOnly = false,
     defaultValue = "",
+    borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
-  const classes = useStyles();
-
-  // Conditionally add the error class if error is true
-  const rootClassName = error
-    ? `${classes.root} ${classes.error}`
-    : classes.root;
 
   return (
     <TextField
@@ -54,10 +49,10 @@ const TextFieldComponent = (props: any) => {
       label={label}
       error={error}
       variant="filled"
+      sx={styles(error, borderRadius)}
       required={required}
       disabled={disabled}
       helperText={helperText}
-      className={rootClassName}
       defaultValue={defaultValue}
       InputProps={{ disableUnderline: true, readOnly: readOnly }}
     />

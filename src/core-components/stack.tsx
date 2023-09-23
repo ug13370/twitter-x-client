@@ -1,11 +1,8 @@
 import { Stack } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 
-const useStyles: any = makeStyles((theme: any) => ({
-  root: {
-    width: "100%",
-  },
-}));
+const styles: any = {
+  width: "100%",
+};
 
 const StackComponent = (props: any) => {
   const {
@@ -16,13 +13,12 @@ const StackComponent = (props: any) => {
     justifyContent = "center",
   } = props;
 
-  const classes = useStyles();
   return (
     <Stack
+      sx={styles}
       spacing={spacing}
       direction={direction}
       alignItems={alignItems}
-      className={classes.root}
       justifyContent={justifyContent}
     >
       {children}

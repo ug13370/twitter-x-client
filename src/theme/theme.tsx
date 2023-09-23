@@ -101,14 +101,14 @@ export const theme = (mode: string): any => {
         fontWeight: 600,
         textTransform: "none",
         letterSpacing: "1px",
-        lineHeight: "1.5", 
+        lineHeight: "1.5",
       },
       secondaryButton: {
         fontSize: "0.875rem",
         fontWeight: 600,
         textTransform: "none",
         letterSpacing: "0.5px",
-        lineHeight: "1.5", 
+        lineHeight: "1.5",
       },
       normalButton: {
         fontSize: "0.875rem",
@@ -117,6 +117,9 @@ export const theme = (mode: string): any => {
         letterSpacing: "0.5px",
         lineHeight: "1.5",
       },
+    },
+    shape: {
+      borderRadius: 3,
     },
   };
 };

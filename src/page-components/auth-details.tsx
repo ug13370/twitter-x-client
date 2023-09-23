@@ -16,27 +16,38 @@ const AuthDetails = (props: any) => {
             id="name"
             required={true}
             label="Full Name"
+            borderRadius={1}
           ></TextFieldComponent>
           <TextFieldComponent
             id="email_id"
             required={true}
             label="Email Id"
+            borderRadius={1}
           ></TextFieldComponent>
           <TextFieldComponent
             id="password"
-            required={true}s
+            required={true}
             type="password"
             label="Password"
+            borderRadius={1}
             helperText="Password must be at least 2 characters long."
           ></TextFieldComponent>
         </StackComponent>
       </CardContent>
       <CardActions>
         <StackComponent spacing={1}>
-          <ButtonComponent variant="contained" typography="primaryButton">
+          <ButtonComponent
+            borderRadius={1.2}
+            variant="contained"
+            typography="primaryButton"
+          >
             Signup
           </ButtonComponent>
-          <ButtonComponent variant="outlined" typography="secondaryButton">
+          <ButtonComponent
+            borderRadius={1.2}
+            variant="outlined"
+            typography="secondaryButton"
+          >
             Already have an account
           </ButtonComponent>
         </StackComponent>
