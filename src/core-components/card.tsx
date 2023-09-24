@@ -16,9 +16,6 @@ const styles = (
     "> *:not(:last-child)": {
       padding: `0rem 0rem ${padding} 0rem`,
     },
-    "> *": {
-      padding: "0rem",
-    },
   };
 };
 
@@ -53,7 +50,7 @@ const CardComponent = (props: any) => {
         </CardContent>
       )}
       {actions && (
-        <CardActions>
+        <CardActions style={{padding:"0rem"}}>
           <StackComponent spacing={1}>{actions}</StackComponent>
         </CardActions>
       )}
