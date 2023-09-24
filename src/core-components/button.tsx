@@ -13,16 +13,17 @@ const ButtonComponent = (props: any) => {
     variant,
     children,
     disabled = false,
+    fullWidth = true,
     onClick = () => {},
     typography = "normalButton",
     borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
   return (
     <Button
-      fullWidth
       onClick={onClick}
       variant={variant}
       disabled={disabled}
+      fullWidth={fullWidth}
       sx={styles(typography, borderRadius)}
     >
       {children}

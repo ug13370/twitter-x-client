@@ -2,9 +2,14 @@ import StackComponent from "./stack";
 import { ThemeSettings } from "../theme";
 import { Card, CardActions, CardContent, Typography } from "@mui/material";
 
-const styles = (padding: string, shadow: string, borderRadius: number) => {
+const styles = (
+  padding: string,
+  width: string,
+  shadow: string,
+  borderRadius: number
+) => {
   return {
-    width: "24rem",
+    width: width,
     padding: padding,
     boxShadow: shadow,
     borderRadius: borderRadius,
@@ -12,7 +17,7 @@ const styles = (padding: string, shadow: string, borderRadius: number) => {
       padding: `0rem 0rem ${padding} 0rem`,
     },
     "> *": {
-      padding: 0,
+      padding: "0rem",
     },
   };
 };
@@ -23,6 +28,7 @@ const CardComponent = (props: any) => {
     title = null,
     content = null,
     actions = null,
+    width = "24rem",
     shadowLevel = 0,
     padding = "1.8rem",
     borderRadius = ThemeSettings("light").shape.borderRadius,
@@ -32,11 +38,12 @@ const CardComponent = (props: any) => {
     <Card
       sx={styles(
         padding,
+        width,
         ThemeSettings("light").shadows[shadowLevel],
         borderRadius
       )}
     >
-      {(title || content) && (
+      {(logo || title || content) && (
         <CardContent>
           <StackComponent alignItems="flex-start">
             {logo}
