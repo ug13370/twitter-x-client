@@ -1,28 +1,46 @@
-import "./App.scss";
-import { AuthPage } from "./pages";
+/** React Imports */
 import { useContext } from "react";
-import { ThemeSettings } from "./theme";
-import AppContext from "./utils/contexts/App/AppContext";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DarkLightToggleComponent } from "./core-components";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+/** MUI Imports */
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
-function App() {
+/** SCSS Imports */
+import "./App.scss";
+
+/** Context Imports */
+import AppContext from "./utils/contexts/App/AppContext";
+
+/** Component Imports */
+import { AuthPage, LandingPage } from "./pages";
+
+/** Other Imports */
+import { ThemeSettings } from "./theme";
+
+const App = () => {
   const { theme } = useContext(AppContext);
   const themeObj = createTheme(ThemeSettings(theme));
 
   return (
     <ThemeProvider theme={themeObj}>
       <CssBaseline />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div style={{ position: "relative" }}>
-          <DarkLightToggleComponent />
-          <AuthPage />
-        </div>
-      </LocalizationProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route
+              path=""
+              element={<Navigate to="/Auth" replace={true} />}
+            ></Route>
+            <Route path="Auth" element={<AuthPage />} />
+            <Route path="Home" element={<LandingPage />} />
+            <Route path="Profile" element={<LandingPage />} />
+            <Route path="Activity" element={<LandingPage />} />
+            <Route path="*" element={<Navigate to="/Auth" replace={true} />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

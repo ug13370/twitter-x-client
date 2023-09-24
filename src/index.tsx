@@ -1,9 +1,22 @@
+/** React Imports */
 import React from "react";
 import ReactDOM from "react-dom/client";
+
+/** MUI Imports */
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+/** SCSS Imports */
 import "./index.scss";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+
+/** Context Imports */
 import { AppContextProvider } from "./utils/contexts/App/AppContextProvider";
+
+/** Component Imports */
+import App from "./App";
+
+/** Other Imports */
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,7 +24,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppContextProvider>
-      <App />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App />
+      </LocalizationProvider>
     </AppContextProvider>
   </React.StrictMode>
 );
@@ -20,3 +35,16 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+/** React Imports */
+
+/** MUI Imports */
+
+/** SCSS Imports */
+
+/** Context Imports */
+
+/** Component Imports */
+
+/** Other Imports */
