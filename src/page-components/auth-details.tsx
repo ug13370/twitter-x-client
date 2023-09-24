@@ -2,6 +2,7 @@ import {
   CardComponent,
   ButtonComponent,
   TextFieldComponent,
+  DatePickerComponent,
 } from "../core-components";
 import { LogoComponent } from ".";
 import { useMediaQuery } from "@mui/material";
@@ -63,13 +64,19 @@ const AuthCardContent = () => {
         label="Email Id"
         borderRadius={2}
       ></TextFieldComponent>
+      {signupMode && (
+        <DatePickerComponent
+          required={true}
+          borderRadius={2}
+          label="Date of birth"
+        ></DatePickerComponent>
+      )}
       <TextFieldComponent
         id="password"
         required={true}
         type="password"
         label="Password"
         borderRadius={2}
-        helperText="Password must be at least 2 characters long."
       ></TextFieldComponent>
     </>
   );

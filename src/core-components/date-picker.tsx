@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { ThemeSettings } from "../theme";
 
 const styles = (error: boolean, borderRadius: number) => {
@@ -27,36 +27,38 @@ const styles = (error: boolean, borderRadius: number) => {
   };
 };
 
-const TextFieldComponent = (props: any) => {
+const DatePickerComponent = (props: any) => {
   const {
-    id,
-    label,
-    error,
-    type = "text",
+    label = "",
+    error = false,
     helperText = "",
     required = false,
     disabled = false,
     readOnly = false,
-    defaultValue = "",
+    startingView = "year",
+    views = ["year", "month", "day"],
     borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
-
   return (
-    <TextField
-      id={id}
-      fullWidth
-      type={type}
+    <DatePicker
       label={label}
-      error={error}
-      variant="filled"
-      required={required}
+      views={views}
       disabled={disabled}
-      helperText={helperText}
-      defaultValue={defaultValue}
-      sx={styles(error, borderRadius)}
-      InputProps={{ disableUnderline: true, readOnly: readOnly }}
+      readOnly={readOnly}
+      openTo={startingView}
+      slotProps={{
+        textField: {
+          error: error,
+          fullWidth: true,
+          variant: "filled",
+          required: required,
+          helperText: helperText,
+          sx: { ...styles(error, borderRadius) },
+          InputProps: { disableUnderline: true, readOnly: readOnly },
+        },
+      }}
     />
   );
 };
 
-export default TextFieldComponent;
+export default DatePickerComponent;
