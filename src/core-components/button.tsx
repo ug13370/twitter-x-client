@@ -4,38 +4,46 @@ import { ThemeSettings } from "../theme";
 const styles = (
   typography: any,
   borderRadius: any,
-  scale: number,
-  padding: number
+  padding: number,
+  fontSize: string
 ) => {
   return {
     typography: typography,
     borderRadius: borderRadius,
-    transform: `scale(${scale})`,
     padding: `${padding / 2}rem ${padding}rem`,
+    fontSize: `${fontSize}rem`,
+    "> .MuiButton-startIcon svg": {
+      fontSize: `${fontSize}rem`,
+    },
   };
 };
 
 const ButtonComponent = (props: any) => {
   const {
     variant,
+    id = "",
     children,
-    scale = 1,
+    fontSize = 1,
+    active = false,
     disabled = false,
     padding = "0rem",
     fullWidth = true,
     startIcon = <></>,
     onClick = () => {},
+    activeStartIcon = <></>,
     typography = "normalButton",
     borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
   return (
     <Button
+      id={id}
+      key={id}
       onClick={onClick}
       variant={variant}
       disabled={disabled}
       fullWidth={fullWidth}
-      startIcon={startIcon}
-      sx={styles(typography, borderRadius, scale, padding)}
+      startIcon={active ? activeStartIcon : startIcon}
+      sx={styles(typography, borderRadius, padding, fontSize)}
     >
       {children}
     </Button>

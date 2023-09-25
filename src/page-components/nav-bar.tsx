@@ -1,10 +1,12 @@
+import { createContext, useContext, useState } from "react";
 import { Box, SvgIcon } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { ButtonComponent } from "../core-components";
 
 const styles = () => {
   return {
     root: {
-      gap: 3,
+      gap: 2,
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
@@ -12,21 +14,58 @@ const styles = () => {
   };
 };
 
-const SingleNav = (nav: any) => {
+const NavigationContext = createContext<any>(null);
+const NavigationContextProvider = ({ children }: any) => {
+  const [activeNav, setActiveNav] = useState<string>("home");
+  return (
+    <NavigationContext.Provider value={{ activeNav, setActiveNav }}>
+      {children}
+    </NavigationContext.Provider>
+  );
+};
+
+const SingleNav = ({ nav }: any) => {
+  const navigate = useNavigate();
+  const { activeNav, setActiveNav } = useContext(NavigationContext);
+
   return (
     <>
-      <ButtonComponent
-        scale={1.7}
-        padding={1}
-        variant="text"
-        borderRadius={10}
-        fullWidth={false}
-        onClick={nav.onClick}
-        typography="normalButton"
-        startIcon={<SvgIcon component={nav.icon}></SvgIcon>}
-      >
-        {nav.label}
-      </ButtonComponent>
+      {nav.type === "router" && (
+        <ButtonComponent
+          id={nav.id}
+          padding={0.8}
+          fontSize={1.7}
+          borderRadius={10}
+          fullWidth={false}
+          onClick={() => {
+            navigate(`/${nav.label}`);
+            setActiveNav(nav.id);
+          }}
+          typography="normalButton"
+          active={activeNav === nav.id}
+          startIcon={<SvgIcon component={nav.icon}></SvgIcon>}
+          activeStartIcon={<SvgIcon component={nav.activeIcon}></SvgIcon>}
+        >
+          {nav.label}
+        </ButtonComponent>
+      )}
+
+      {nav.type === "action" && (
+        <ButtonComponent
+          id={nav.id}
+          padding={0.8}
+          fontSize={1.3}
+          fullWidth={true}
+          borderRadius={10}
+          variant="contained"
+          onClick={nav.onClick}
+          typography="primaryButton"
+          startIcon={<SvgIcon component={nav.icon}></SvgIcon>}
+          activeStartIcon={<SvgIcon component={nav.activeIcon}></SvgIcon>}
+        >
+          {nav.label}
+        </ButtonComponent>
+      )}
     </>
   );
 };
@@ -35,11 +74,13 @@ const NavBar = (props: any) => {
   const { navs, classname, sx = {} } = props;
 
   return (
-    <Box className={classname} sx={{ ...styles().root, ...sx }}>
-      {navs.map((nav: any) => {
-        return SingleNav(nav);
-      })}
-    </Box>
+    <NavigationContextProvider>
+      <Box className={classname} sx={{ ...styles().root, ...sx }}>
+        {navs.map((nav: any) => {
+          return <SingleNav nav={nav} />;
+        })}
+      </Box>
+    </NavigationContextProvider>
   );
 };
 

@@ -21,9 +21,10 @@ const styles = () => {
       display: "grid",
       gridTemplateRows: "auto 1fr 1fr",
       gridTemplateColumns: "1fr",
+      rowGap: 0.5,
 
       LogoComponent: {
-        justifySelf: "end",
+        justifySelf: "start",
       },
       NavBarComponent: {},
       AccountComponent: {
@@ -44,7 +45,7 @@ const NavBarSection = (props: any) => {
       onClick: () => {
         navigate("/Home");
       },
-      activeIcon: <HomeIcon />,
+      activeIcon: HomeIcon,
       icon: HomeOutlinedIcon,
     },
     {
@@ -54,7 +55,7 @@ const NavBarSection = (props: any) => {
       onClick: () => {
         navigate("/Profile");
       },
-      activeIcon: <PersonIcon />,
+      activeIcon: PersonIcon,
       icon: PersonOutlineIcon,
     },
     {
@@ -75,7 +76,10 @@ const Landing = (props: any) => {
       <Box sx={styles().root}>
         <DarkLightToggleComponent />
         <Box sx={styles().navSection}>
-          <LogoComponent width="5rem" sx={styles().navSection.LogoComponent} />
+          <LogoComponent
+            width="3.5rem"
+            sx={styles().navSection.LogoComponent}
+          />
           <NavBarSection sx={styles().navSection.NavBarComponent} />
           <AccountMenu sx={styles().navSection.AccountComponent} />
         </Box>
