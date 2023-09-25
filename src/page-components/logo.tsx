@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 const logoSvg = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
     <linearGradient
@@ -48,11 +50,11 @@ const logoSvg = (
 );
 
 const Logo = (props: any) => {
-  const { width, minWidth } = props;
+  const { width = "1rem", minWidth = "1rem", sx = {} } = props;
   return (
-    <div style={{ height: "auto", width: width, minWidth: minWidth }}>
+    <Box sx={{ height: "auto", width: width, minWidth: minWidth, ...sx }}>
       {logoSvg}
-    </div>
+    </Box>
   );
 };
 

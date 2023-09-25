@@ -1,3 +1,15 @@
+/** React Imports */
+import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useState } from "react";
+
+/** MUI Imports */
+import { useMediaQuery } from "@mui/material";
+
+/** SCSS Imports */
+
+/** Context Imports */
+
+/** Component Imports */
 import {
   CardComponent,
   ButtonComponent,
@@ -5,8 +17,8 @@ import {
   DatePickerComponent,
 } from "../core-components";
 import { LogoComponent } from ".";
-import { useMediaQuery } from "@mui/material";
-import { createContext, useContext, useState } from "react";
+
+/** Other Imports */
 
 const ToggleContext = createContext<any>(null);
 const ToggleContextProvider = ({ children }: any) => {
@@ -19,17 +31,24 @@ const ToggleContextProvider = ({ children }: any) => {
 };
 
 const AuthCardActions = () => {
+  const navigate = useNavigate();
   const { signupMode, setSignupMode } = useContext(ToggleContext);
 
   const onAuthLayerChange = () => {
     setSignupMode((prevMode: boolean) => !prevMode);
   };
+
+  const onAuthLayerFiring = () => {
+    navigate("/Home", { replace: true });
+  };
+
   return (
     <>
       <ButtonComponent
         borderRadius={1.2}
         variant="contained"
         typography="primaryButton"
+        onClick={onAuthLayerFiring}
       >
         {signupMode ? "Signup" : "Signin"}
       </ButtonComponent>
