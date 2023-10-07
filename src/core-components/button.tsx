@@ -20,13 +20,14 @@ const styles = (
 
 const ButtonComponent = (props: any) => {
   const {
+    sx = {},
     variant,
     id = "",
     children,
     fontSize = 1,
     active = false,
     disabled = false,
-    padding = "0rem",
+    padding = 0,
     fullWidth = true,
     startIcon = <></>,
     onClick = () => {},
@@ -43,7 +44,7 @@ const ButtonComponent = (props: any) => {
       disabled={disabled}
       fullWidth={fullWidth}
       startIcon={active ? activeStartIcon : startIcon}
-      sx={styles(typography, borderRadius, padding, fontSize)}
+      sx={{ ...sx, ...styles(typography, borderRadius, padding, fontSize) }}
     >
       {children}
     </Button>

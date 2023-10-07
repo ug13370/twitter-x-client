@@ -22,6 +22,7 @@ const styles = () => {
       gridTemplateRows: "auto 1fr 1fr",
       gridTemplateColumns: "1fr",
       rowGap: 0.5,
+      margin:"1rem 0rem",
 
       LogoComponent: {
         justifySelf: "start",
