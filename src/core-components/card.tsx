@@ -50,7 +50,7 @@ const CardComponent = (props: any) => {
         </CardContent>
       )}
       {actions && (
-        <CardActions style={{padding:"0rem"}}>
+        <CardActions style={{ padding: "0rem" }}>
           <StackComponent spacing={1}>{actions}</StackComponent>
         </CardActions>
       )}

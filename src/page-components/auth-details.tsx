@@ -45,6 +45,7 @@ const AuthCardActions = () => {
   return (
     <>
       <ButtonComponent
+        padding={0.5}
         borderRadius={1.2}
         variant="contained"
         typography="primaryButton"
@@ -53,6 +54,7 @@ const AuthCardActions = () => {
         {signupMode ? "Signup" : "Signin"}
       </ButtonComponent>
       <ButtonComponent
+        padding={0.5}
         borderRadius={1.2}
         variant="outlined"
         onClick={onAuthLayerChange}
