@@ -49,10 +49,27 @@ const logoSvg = (
   </svg>
 );
 
+const styles = (width: string, minWidth: string) => {
+  return {
+    root: {
+      height: "auto",
+      display: "flex",
+      alignItems: "center",
+      width: width,
+      minWidth: minWidth,
+    },
+  };
+};
+
 const Logo = (props: any) => {
   const { width = "1rem", minWidth = "1rem", sx = {} } = props;
   return (
-    <Box sx={{ height: "auto", width: width, minWidth: minWidth, ...sx }}>
+    <Box
+      sx={{
+        ...styles(width, minWidth).root,
+        ...sx,
+      }}
+    >
       {logoSvg}
     </Box>
   );
