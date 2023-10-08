@@ -4,7 +4,7 @@ import { ThemeSettings } from "../theme";
 import { useContext } from "react";
 import AppContext from "../utils/contexts/App/AppContext";
 import { ButtonComponent } from "../core-components";
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
@@ -51,7 +51,13 @@ const styles = (themeSettings: any) => {
 };
 
 const SingleAction = (props: any) => {
-  const { id = "", icon = <></>, data = "", onClick = () => {} } = props;
+  const {
+    sx = {},
+    id = "",
+    data = "",
+    icon = <></>,
+    onClick = () => {},
+  } = props;
   const style = () => {
     return {
       root: {
@@ -63,7 +69,13 @@ const SingleAction = (props: any) => {
     };
   };
   return (
-    <ButtonComponent id={id} fullWidth={false} padding={0.4} borderRadius={5}>
+    <ButtonComponent
+      id={id}
+      padding={0.4}
+      sx={{ ...sx }}
+      borderRadius={5}
+      fullWidth={false}
+    >
       <Box sx={style().root}>
         {icon}
         {data}
@@ -101,8 +113,10 @@ const TweetCellComponent = (props: any) => {
           inventore labore nemo distinctio corporis exercitationem consequuntur
           libero, dolorum quod! Quasi, libero!
         </Typography>
+        <Typography variant="subtitle1">5:06 AM · Oct 8, 2023</Typography>
         <div className="user-actions">
           <SingleAction
+            sx={{ paddingLeft: "100rem" }}
             id={"comment"}
             icon={<ModeCommentOutlinedIcon />}
             data={"7,953"}

@@ -37,7 +37,6 @@ const styles = () => {
     },
     tweetsSection: {
       maxWidth: "40rem",
-      overflowY: "auto",
     },
   };
 };

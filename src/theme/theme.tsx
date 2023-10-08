@@ -86,6 +86,7 @@ export const theme = (mode: string): any => {
         fontSize: "1rem",
         fontWeight: 400,
         lineHeight: 1.5,
+        opacity:0.7
       },
       subtitle2: {
         fontSize: "0.875rem",
