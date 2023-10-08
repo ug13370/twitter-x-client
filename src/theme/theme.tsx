@@ -23,6 +23,9 @@ export const theme = (mode: string): any => {
               default: ColorTokens.grey[900],
               alt: ColorTokens.grey[800],
             },
+            text:{
+              primary:ColorTokens.grey[100],
+            }
           }
         : {
             // palette values for light mode
@@ -42,6 +45,9 @@ export const theme = (mode: string): any => {
               default: ColorTokens.grey[10],
               alt: ColorTokens.grey[0],
             },
+            text:{
+              primary:ColorTokens.grey[800],
+            }
           }),
     },
     typography: {

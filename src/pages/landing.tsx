@@ -8,6 +8,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import AccountMenu from "../page-components/account-menu";
 import { Box } from "@mui/material";
+import HomePage from "./home";
 
 const styles = () => {
   return {
@@ -22,7 +23,9 @@ const styles = () => {
       gridTemplateRows: "auto 1fr 1fr",
       gridTemplateColumns: "1fr",
       rowGap: 0.5,
-      margin:"1rem 0rem",
+      margin: "1rem 1.5rem",
+
+      overflowY: "auto",
 
       LogoComponent: {
         justifySelf: "start",
@@ -31,6 +34,10 @@ const styles = () => {
       AccountComponent: {
         alignSelf: "end",
       },
+    },
+    tweetsSection: {
+      maxWidth: "40rem",
+      overflowY: "auto",
     },
   };
 };
@@ -84,6 +91,7 @@ const Landing = (props: any) => {
           <NavBarSection sx={styles().navSection.NavBarComponent} />
           <AccountMenu sx={styles().navSection.AccountComponent} />
         </Box>
+        <HomePage sx={styles().tweetsSection} />
       </Box>
     </>
   );
