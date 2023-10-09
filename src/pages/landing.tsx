@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { DarkLightToggleComponent } from "../core-components";
-import { LogoComponent, NavBarComponent } from "../page-components";
+import { LogoComponent, NavBarComponent, WhoToFollowCardComponent } from "../page-components";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
@@ -91,6 +91,7 @@ const Landing = (props: any) => {
           <AccountMenu sx={styles().navSection.AccountComponent} />
         </Box>
         <HomePage sx={styles().tweetsSection} />
+        <WhoToFollowCardComponent />
       </Box>
     </>
   );
