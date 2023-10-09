@@ -2,8 +2,8 @@ import { LogoComponent } from ".";
 import { useContext } from "react";
 import { ThemeSettings } from "../theme";
 import { ButtonComponent } from "../core-components";
+import { Avatar, Box, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
-import { Avatar, Box, Button, Typography } from "@mui/material";
 
 const styles = (themeSettings: any) => {
   return {

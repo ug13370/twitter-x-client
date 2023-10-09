@@ -1,9 +1,9 @@
-import { Avatar, Box, Typography } from "@mui/material";
 import { LogoComponent } from ".";
-import { ThemeSettings } from "../theme";
 import { useContext } from "react";
-import AppContext from "../utils/contexts/App/AppContext";
+import { ThemeSettings } from "../theme";
 import { ButtonComponent } from "../core-components";
+import { Avatar, Box, Typography } from "@mui/material";
+import AppContext from "../utils/contexts/App/AppContext";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";

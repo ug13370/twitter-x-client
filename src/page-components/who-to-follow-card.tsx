@@ -1,9 +1,9 @@
-import { Avatar, Box, Card, Typography } from "@mui/material";
-import { ButtonComponent } from "../core-components";
 import { LogoComponent } from ".";
-import { ThemeSettings } from "../theme";
 import { useContext } from "react";
+import { ThemeSettings } from "../theme";
+import { ButtonComponent } from "../core-components";
 import AppContext from "../utils/contexts/App/AppContext";
+import { Avatar, Box, Card, Typography } from "@mui/material";
 
 const styles = (themeSettings: any) => {
   return {

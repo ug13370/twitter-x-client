@@ -1,14 +1,18 @@
+import {
+  LogoComponent,
+  NavBarComponent,
+  WhoToFollowCardComponent,
+} from "../page-components";
+import HomePage from "./home";
+import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { DarkLightToggleComponent } from "../core-components";
-import { LogoComponent, NavBarComponent, WhoToFollowCardComponent } from "../page-components";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import AccountMenu from "../page-components/account-menu";
-import { Box } from "@mui/material";
-import HomePage from "./home";
+import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
+import { DarkLightToggleComponent } from "../core-components";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 const styles = () => {
   return {
