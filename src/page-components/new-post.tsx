@@ -26,17 +26,15 @@ const styles = (themeSettings: any) => {
         alignItems: "flex-start",
         width: "100%",
         "& .MuiInput-root": {
-          "&:before": { borderBottom: "none" },
-          "&:after": { borderBottom: "none" },
-          "&:hover": { borderBottom: "none" },
+          ".input": { fontSize: "1.5rem" },
         },
-        ".divider":{
-            marginBottom:"0.7rem",
-            width: "100%",
+        ".divider": {
+          marginBottom: "0.7rem",
+          width: "100%",
         },
-        ".post-btn":{
-            alignSelf:"flex-end"
-        }
+        ".post-btn": {
+          alignSelf: "flex-end",
+        },
       },
     },
   };
@@ -65,7 +63,13 @@ const NewPost = (props: any) => {
           multiline
           minRows={2}
           maxRows={10}
-          inputProps={{ maxLength: 200, style: { fontSize: "1.4rem" } }}
+          inputProps={{ maxLength: 200 }}
+          InputProps={{
+            classes: {
+              input: "input",
+            },
+            disableUnderline: true,
+          }}
           id="new-post"
           fullWidth={true}
           placeholder="What is happening?"
@@ -80,7 +84,9 @@ const NewPost = (props: any) => {
           variant="contained"
           className="post-btn"
         >
-          <Typography variant="h6" fontSize={18}>Post</Typography>
+          <Typography variant="h6" fontSize={18}>
+            Post
+          </Typography>
         </ButtonComponent>
       </Box>
     </Box>
