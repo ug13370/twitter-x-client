@@ -75,6 +75,7 @@ const SingleAction = (props: any) => {
       sx={{ ...sx }}
       borderRadius={5}
       fullWidth={false}
+      onClick={onClick}
     >
       <Box sx={style().root}>
         {icon}
@@ -85,7 +86,6 @@ const SingleAction = (props: any) => {
 };
 
 const TweetCellComponent = (props: any) => {
-  const {} = props;
   const { theme } = useContext(AppContext);
   return (
     <Box sx={styles(ThemeSettings(theme)).root}>
