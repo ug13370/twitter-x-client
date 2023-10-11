@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ThemeSettings } from "../theme";
 import { Box, Typography } from "@mui/material";
-import { TweetCellComponent } from "../page-components";
+import { NewPostComponent, TweetCellComponent } from "../page-components";
 import AppContext from "../utils/contexts/App/AppContext";
 
 const styles = (themeSettings: any) => {
@@ -11,12 +11,14 @@ const styles = (themeSettings: any) => {
       flexDirection: "column",
       ".header": {
         padding: "1.2rem",
-        boxShadow: "0 6px 3px -3px rgba(0,0,0,0.2)",
       },
       ".tweets": {
         display: "flex",
         flexDirection: "column",
         overflowY: "auto",
+      },
+      ".show-box-shadow": {
+        boxShadow: "0 6px 3px -3px rgba(0,0,0,0.2)",
       },
     },
   };
@@ -37,10 +39,12 @@ const HomePage = (props: any) => {
   return (
     <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
       <Header className="header" />
+      <NewPostComponent className="show-box-shadow" />
       <Box className="tweets">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => {
           return <TweetCellComponent />;
         })}
+        Ne
       </Box>
     </Box>
   );

@@ -24,7 +24,7 @@ const styles = (themeSettings: any) => {
         height: "16rem",
         overflowY: "auto",
         "> *:first-child": {
-          marginTop: "0.2rem",
+          marginTop: "0.5rem",
         },
         ".userToFollow": {
           display: "flex",

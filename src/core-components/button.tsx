@@ -26,12 +26,13 @@ const ButtonComponent = (props: any) => {
     children,
     padding = 0,
     fontSize = 1,
+    className = "",
     active = false,
     disabled = false,
     fullWidth = true,
-    startIcon = <></>,
+    startIcon = null,
     onClick = () => {},
-    activeStartIcon = <></>,
+    activeStartIcon = null,
     typography = "normalButton",
     borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
@@ -43,6 +44,7 @@ const ButtonComponent = (props: any) => {
       variant={variant}
       disabled={disabled}
       fullWidth={fullWidth}
+      className={className}
       startIcon={active ? activeStartIcon : startIcon}
       sx={{ ...sx, ...styles(typography, borderRadius, padding, fontSize) }}
     >
