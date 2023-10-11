@@ -57,9 +57,9 @@ const WhoToFollowCardComponent = () => {
   const content = () => {
     return (
       <Box className="userToFollowList">
-        {[1, 2, 3, 4, 5].map((elem) => {
+        {[1, 2, 3, 4, 5].map((data: number, index: number) => {
           return (
-            <Box className="userToFollow">
+            <Box key={index} className="userToFollow">
               <Box className="userInfo">
                 <Avatar className="avatar">
                   <LogoComponent width="2rem" />

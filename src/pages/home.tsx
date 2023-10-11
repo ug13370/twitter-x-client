@@ -41,10 +41,9 @@ const HomePage = (props: any) => {
       <Header className="header" />
       <NewPostComponent className="show-box-shadow" />
       <Box className="tweets">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => {
-          return <TweetCellComponent />;
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((data:number,index:number) => {
+          return <TweetCellComponent compKey={index} />;
         })}
-        Ne
       </Box>
     </Box>
   );

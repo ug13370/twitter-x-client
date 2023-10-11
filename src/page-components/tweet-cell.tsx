@@ -86,9 +86,10 @@ const SingleAction = (props: any) => {
 };
 
 const TweetCellComponent = (props: any) => {
+  const { compKey = "" } = props;
   const { theme } = useContext(AppContext);
   return (
-    <Box sx={styles(ThemeSettings(theme)).root}>
+    <Box key={compKey} sx={styles(ThemeSettings(theme)).root}>
       <Avatar sx={styles(ThemeSettings(theme)).avatar}>
         <LogoComponent width="2rem" />
       </Avatar>

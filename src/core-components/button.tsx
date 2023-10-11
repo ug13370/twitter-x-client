@@ -38,7 +38,6 @@ const ButtonComponent = (props: any) => {
   } = props;
   return (
     <Button
-      id={id}
       key={id}
       onClick={onClick}
       variant={variant}
