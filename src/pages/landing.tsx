@@ -110,7 +110,12 @@ const Landing = (props: any) => {
           />
         </Box>
         <HomePage sx={styles().tweetsSection} />
-        {!mdMatches && <WhoToFollowCardComponent lgMatches={lgMatches} sx={styles().whoToFollow} />}
+        {!mdMatches && (
+          <WhoToFollowCardComponent
+            lgMatches={lgMatches}
+            sx={styles().whoToFollow}
+          />
+        )}
       </Box>
     </>
   );

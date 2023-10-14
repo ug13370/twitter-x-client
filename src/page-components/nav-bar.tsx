@@ -75,7 +75,6 @@ const SingleNav = (props: any) => {
 
 const NavBar = (props: any) => {
   const { navs = [], classname, sx = {}, showJustIcons = false } = props;
-  console.log(showJustIcons);
 
   return (
     <NavigationContextProvider>
