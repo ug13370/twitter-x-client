@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ThemeSettings } from "../theme";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { NewPostComponent, TweetCellComponent } from "../page-components";
 import AppContext from "../utils/contexts/App/AppContext";
 
@@ -16,6 +16,9 @@ const styles = (themeSettings: any) => {
         display: "flex",
         flexDirection: "column",
         overflowY: "auto",
+        "> *.divider": {
+          margin: "0rem 2.8rem",
+        },
       },
       ".show-box-shadow": {
         boxShadow: "0 6px 3px -3px rgba(0,0,0,0.2)",
@@ -41,9 +44,16 @@ const HomePage = (props: any) => {
       <Header className="header" />
       <NewPostComponent className="show-box-shadow" />
       <Box className="tweets">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((data:number,index:number) => {
-          return <TweetCellComponent compKey={index} />;
-        })}
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
+          (data: number, index: number) => {
+            return (
+              <>
+                <TweetCellComponent compKey={index} />
+                {index !== 10 && <Divider className="divider" />}
+              </>
+            );
+          }
+        )}
       </Box>
     </Box>
   );

@@ -5,15 +5,19 @@ const styles = (
   typography: any,
   borderRadius: any,
   padding: number,
-  fontSize: string
+  fontSize: string,
+  showJustIcon: boolean
 ) => {
   return {
     typography: typography,
     borderRadius: borderRadius,
     padding: `${padding / 2}rem ${padding}rem`,
     fontSize: `${fontSize}rem`,
-    "> .MuiButton-startIcon svg": {
-      fontSize: `${fontSize}rem`,
+    "> .MuiButton-startIcon": {
+      marginRight: showJustIcon ? "0px" : "8px",
+      svg: {
+        fontSize: `${fontSize}rem`,
+      },
     },
   };
 };
@@ -32,6 +36,7 @@ const ButtonComponent = (props: any) => {
     fullWidth = true,
     startIcon = null,
     onClick = () => {},
+    showJustIcon = false,
     activeStartIcon = null,
     typography = "normalButton",
     borderRadius = ThemeSettings("light").shape.borderRadius,
@@ -45,9 +50,12 @@ const ButtonComponent = (props: any) => {
       fullWidth={fullWidth}
       className={className}
       startIcon={active ? activeStartIcon : startIcon}
-      sx={{ ...sx, ...styles(typography, borderRadius, padding, fontSize) }}
+      sx={{
+        ...sx,
+        ...styles(typography, borderRadius, padding, fontSize, showJustIcon),
+      }}
     >
-      {children}
+      {!showJustIcon && children}
     </Button>
   );
 };

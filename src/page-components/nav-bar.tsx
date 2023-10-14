@@ -24,7 +24,8 @@ const NavigationContextProvider = ({ children }: any) => {
   );
 };
 
-const SingleNav = ({ nav }: any) => {
+const SingleNav = (props: any) => {
+  const { nav, showJustIcons = false } = props;
   const navigate = useNavigate();
   const { activeNav, setActiveNav } = useContext(NavigationContext);
 
@@ -37,11 +38,12 @@ const SingleNav = ({ nav }: any) => {
           fontSize={1.7}
           borderRadius={10}
           fullWidth={false}
+          typography="normalButton"
           onClick={() => {
             navigate(`/${nav.label}`);
             setActiveNav(nav.id);
           }}
-          typography="normalButton"
+          showJustIcon={showJustIcons}
           active={activeNav === nav.id}
           startIcon={<SvgIcon component={nav.icon}></SvgIcon>}
           activeStartIcon={<SvgIcon component={nav.activeIcon}></SvgIcon>}
@@ -55,11 +57,12 @@ const SingleNav = ({ nav }: any) => {
           id={nav.id}
           padding={0.8}
           fontSize={1.3}
-          fullWidth={true}
           borderRadius={10}
           variant="contained"
           onClick={nav.onClick}
           typography="primaryButton"
+          showJustIcon={showJustIcons}
+          fullWidth={showJustIcons ? false : true}
           startIcon={<SvgIcon component={nav.icon}></SvgIcon>}
           activeStartIcon={<SvgIcon component={nav.activeIcon}></SvgIcon>}
         >
@@ -71,13 +74,14 @@ const SingleNav = ({ nav }: any) => {
 };
 
 const NavBar = (props: any) => {
-  const { navs, classname, sx = {} } = props;
+  const { navs = [], classname, sx = {}, showJustIcons = false } = props;
+  console.log(showJustIcons);
 
   return (
     <NavigationContextProvider>
       <Box className={classname} sx={{ ...styles().root, ...sx }}>
         {navs.map((nav: any) => {
-          return <SingleNav nav={nav} />;
+          return <SingleNav showJustIcons={showJustIcons} nav={nav} />;
         })}
       </Box>
     </NavigationContextProvider>

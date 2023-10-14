@@ -4,7 +4,7 @@ import {
   WhoToFollowCardComponent,
 } from "../page-components";
 import HomePage from "./home";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
@@ -21,15 +21,17 @@ const styles = () => {
       height: "100vh",
       flexDirection: "row",
       justifyContent: "center",
+      gap: "1.5rem",
     },
     navSection: {
       display: "grid",
       gridTemplateRows: "auto 1fr 1fr",
       gridTemplateColumns: "1fr",
       rowGap: 0.5,
-      margin: "1rem 1.5rem",
+      margin: "1rem 0rem 0rem 1rem",
 
       overflowY: "auto",
+      minWidth: "4rem",
 
       LogoComponent: {
         justifySelf: "start",
@@ -42,10 +44,14 @@ const styles = () => {
     tweetsSection: {
       maxWidth: "40rem",
     },
+    whoToFollow: {
+      margin: "1rem 1rem 0rem 0rem",
+    },
   };
 };
 
 const NavBarSection = (props: any) => {
+  const { showJustIcons = false } = props;
   const navigate = useNavigate();
 
   const navs = [
@@ -78,10 +84,13 @@ const NavBarSection = (props: any) => {
     },
   ];
 
-  return <NavBarComponent navs={navs} />;
+  return <NavBarComponent showJustIcons={showJustIcons} navs={navs} />;
 };
 
 const Landing = (props: any) => {
+  const lgMatches = useMediaQuery((theme: any) => theme.breakpoints.down("lg"));
+  const mdMatches = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
+
   return (
     <>
       <Box sx={styles().root}>
@@ -91,11 +100,17 @@ const Landing = (props: any) => {
             width="3.5rem"
             sx={styles().navSection.LogoComponent}
           />
-          <NavBarSection sx={styles().navSection.NavBarComponent} />
-          <AccountMenu sx={styles().navSection.AccountComponent} />
+          <NavBarSection
+            showJustIcons={lgMatches}
+            sx={styles().navSection.NavBarComponent}
+          />
+          <AccountMenu
+            showJustIcons={lgMatches}
+            sx={styles().navSection.AccountComponent}
+          />
         </Box>
         <HomePage sx={styles().tweetsSection} />
-        <WhoToFollowCardComponent />
+        {!mdMatches && <WhoToFollowCardComponent lgMatches={lgMatches} sx={styles().whoToFollow} />}
       </Box>
     </>
   );
