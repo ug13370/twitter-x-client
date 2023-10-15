@@ -4,9 +4,9 @@ import {
   WhoToFollowCardComponent,
 } from "../page-components";
 import HomePage from "./home";
-import { Box, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
+import { Box, useMediaQuery } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AccountMenu from "../page-components/account-menu";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
