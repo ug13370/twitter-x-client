@@ -1,5 +1,5 @@
 /** React Imports */
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { createContext, useContext, useState } from "react";
 
 /** MUI Imports */
@@ -88,7 +88,7 @@ const AuthFieldsContextProvider = ({ children }: any) => {
 };
 
 const AuthCardActions = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [authLayerFiring, setAuthLayerFiring] = useState(false);
 
@@ -185,7 +185,7 @@ const AuthCardActions = () => {
 
   const handleErroInAuthLayerFiring = (error: any) => {
     if (typeof error.details !== "string")
-      error.details.map((detail: any) => {
+      error.details.forEach((detail: any) => {
         if (detail.context.key === "user_id") {
           setUserId((prevVal: any) => {
             return {
