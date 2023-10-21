@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createContext, useContext, useState } from "react";
 
 /** MUI Imports */
-import {
-  Alert,
-  IconButton,
-  InputAdornment,
-  Snackbar,
-  useMediaQuery,
-} from "@mui/material";
+import { IconButton, InputAdornment, useMediaQuery } from "@mui/material";
 
 /** SCSS Imports */
 
@@ -23,8 +17,8 @@ import {
   DatePickerComponent,
 } from "../core-components";
 import { LogoComponent } from ".";
+import { createNewUser, loginUser } from "../apis/auth";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { createNewUser } from "../apis/auth";
 import AlertContext from "../utils/contexts/Alert/AlertContext";
 
 /** Other Imports */
@@ -32,7 +26,7 @@ import AlertContext from "../utils/contexts/Alert/AlertContext";
 /** Contexts */
 const ToggleContext = createContext<any>(null);
 const ToggleContextProvider = ({ children }: any) => {
-  const [signupMode, setSignupMode] = useState(true);
+  const [signupMode, setSignupMode] = useState(false);
   return (
     <ToggleContext.Provider value={{ signupMode, setSignupMode }}>
       {children}
@@ -129,7 +123,8 @@ const AuthCardActions = () => {
         email_id: emailId.value,
         password: password.value,
       });
-    else apiCall_loginUser({});
+    else
+      apiCall_loginUser({ email_id: emailId.value, password: password.value });
     // navigate("/Home", { replace: true });
   };
 
@@ -189,63 +184,64 @@ const AuthCardActions = () => {
   };
 
   const handleErroInAuthLayerFiring = (error: any) => {
-    error.details?.map((detail: any) => {
-      if (detail.context.key === "user_id") {
-        setUserId((prevVal: any) => {
-          return {
-            ...prevVal,
-            error: true,
-            helperText: detail.message
-              .replaceAll(`${detail.context.key}`, "User id")
-              .replaceAll('"', ""),
-          };
-        });
-      }
-      if (detail.context.key === "name") {
-        setName((prevVal: any) => {
-          return {
-            ...prevVal,
-            error: true,
-            helperText: detail.message
-              .replaceAll(`${detail.context.key}`, "Name")
-              .replaceAll('"', ""),
-          };
-        });
-      }
-      if (detail.context.key === "email_id") {
-        setEmailId((prevVal: any) => {
-          return {
-            ...prevVal,
-            error: true,
-            helperText: detail.message
-              .replaceAll(`${detail.context.key}`, "Email id")
-              .replaceAll('"', ""),
-          };
-        });
-      }
-      if (detail.context.key === "password") {
-        setPassword((prevVal: any) => {
-          return {
-            ...prevVal,
-            error: true,
-            helperText: detail.message
-              .replaceAll(`${detail.context.key}`, "Password")
-              .replaceAll('"', ""),
-          };
-        });
-      }
-      if (detail.context.key === "dob") {
-        setDob((prevVal: any) => {
-          return {
-            ...prevVal,
-            error: true,
-            helperText: detail.message
-              .replaceAll(`${detail.context.key}`, "Dob")
-              .replaceAll('"', ""),
-          };
-        });
-      }
-    });
+    if (typeof error.details !== "string")
+      error.details.map((detail: any) => {
+        if (detail.context.key === "user_id") {
+          setUserId((prevVal: any) => {
+            return {
+              ...prevVal,
+              error: true,
+              helperText: detail.message
+                .replaceAll(`${detail.context.key}`, "User id")
+                .replaceAll('"', ""),
+            };
+          });
+        }
+        if (detail.context.key === "name") {
+          setName((prevVal: any) => {
+            return {
+              ...prevVal,
+              error: true,
+              helperText: detail.message
+                .replaceAll(`${detail.context.key}`, "Name")
+                .replaceAll('"', ""),
+            };
+          });
+        }
+        if (detail.context.key === "email_id") {
+          setEmailId((prevVal: any) => {
+            return {
+              ...prevVal,
+              error: true,
+              helperText: detail.message
+                .replaceAll(`${detail.context.key}`, "Email id")
+                .replaceAll('"', ""),
+            };
+          });
+        }
+        if (detail.context.key === "password") {
+          setPassword((prevVal: any) => {
+            return {
+              ...prevVal,
+              error: true,
+              helperText: detail.message
+                .replaceAll(`${detail.context.key}`, "Password")
+                .replaceAll('"', ""),
+            };
+          });
+        }
+        if (detail.context.key === "dob") {
+          setDob((prevVal: any) => {
+            return {
+              ...prevVal,
+              error: true,
+              helperText: detail.message
+                .replaceAll(`${detail.context.key}`, "Dob")
+                .replaceAll('"', ""),
+            };
+          });
+        }
+      });
   };
 
   const apiCall_createNewUser = (payload: any) => {
@@ -287,7 +283,43 @@ const AuthCardActions = () => {
       });
   };
 
-  const apiCall_loginUser = (payload: any) => {};
+  const apiCall_loginUser = (payload: any) => {
+    setAuthLayerFiring(true);
+    loginUser(payload)
+      .then((res: any) => {
+        if (res.status === "success") {
+          resetAllFields();
+          setAlert({
+            id: "auth",
+            type: "success",
+            message: "Successfully signed in.",
+            variant: "filled",
+          });
+        } else {
+          resetAllErrors();
+          handleErroInAuthLayerFiring(res);
+          setAlert({
+            id: "auth",
+            type: "error",
+            message: "Could not singin. Please fill all the details correctly.",
+            variant: "filled",
+          });
+        }
+      })
+      .catch((err: any) => {
+        console.log("apiCall_loginUser error:", err);
+        resetAllFields();
+        setAlert({
+          id: "auth",
+          type: "error",
+          message: "API failed to load response.",
+          variant: "filled",
+        });
+      })
+      .finally(() => {
+        setAuthLayerFiring(false);
+      });
+  };
 
   return (
     <>
@@ -447,17 +479,31 @@ const AuthCardContent = () => {
           label="Email Id"
           borderRadius={2}
           error={emailId.error}
+          onChange={onFieldChange}
           helperText={emailId.helperText}
         ></TextFieldComponent>
         <TextFieldComponent
           id="password"
           required={true}
-          type="password"
           label="Password"
-          borderRadius={2}
           value={password}
+          borderRadius={2}
           error={password.error}
+          onChange={onFieldChange}
           helperText={password.helperText}
+          type={showPassword ? "text" : "password"}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
         ></TextFieldComponent>
       </>
     );

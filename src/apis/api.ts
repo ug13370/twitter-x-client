@@ -8,6 +8,8 @@ async function apiCall<T>(
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    // withCredentials: true,
+    credentials: "include",
   };
 
   const response = await fetch(url, fetchObj);
