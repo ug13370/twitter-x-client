@@ -8,7 +8,7 @@ async function apiCall<T>(
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
-    // withCredentials: true,
+    withCredentials: true,
     credentials: "include",
   };
 
