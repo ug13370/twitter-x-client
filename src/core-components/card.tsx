@@ -1,6 +1,15 @@
+import {
+  Card,
+  Collapse,
+  Typography,
+  CardActions,
+  CardContent,
+} from "@mui/material";
 import StackComponent from "./stack";
 import { ThemeSettings } from "../theme";
-import { Card, CardActions, CardContent, Typography } from "@mui/material";
+import { useContext } from "react";
+import AlertComponent from "./alert";
+import AlertContext from "../utils/contexts/Alert/AlertContext";
 
 const styles = (
   padding: string,
@@ -31,6 +40,16 @@ const CardComponent = (props: any) => {
     borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
 
+  const { alert } = useContext(AlertContext);
+
+  const renderAlert = () => {
+    return (
+      <Collapse in={alert.id === "auth"}>
+        <AlertComponent />
+      </Collapse>
+    );
+  };
+
   return (
     <Card
       sx={styles(
@@ -43,6 +62,7 @@ const CardComponent = (props: any) => {
       {(logo || title || content) && (
         <CardContent>
           <StackComponent alignItems="flex-start">
+            {renderAlert()}
             {logo}
             {title && <Typography variant="h2">{title}</Typography>}
             {content}

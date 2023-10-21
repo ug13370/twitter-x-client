@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ThemeSettings } from "../theme";
 import { TextField } from "@mui/material";
 
@@ -5,7 +6,8 @@ const styles = (error: boolean, borderRadius: number) => {
   return {
     "& .MuiInputBase-root": {
       backgroundColor: "transparent",
-      border: "1.5px solid #cfd9de",
+      border: "1.5px solid",
+      borderColor: error ? (theme: any) => theme.palette.error.main : "#cfd9de",
       borderRadius: borderRadius,
 
       "&:before": { borderBottom: "none" },
@@ -15,15 +17,12 @@ const styles = (error: boolean, borderRadius: number) => {
         backgroundColor: "transparent",
       },
       "&.Mui-focused": {
-        borderColor: (theme: any) => theme.palette.primary.main,
+        borderColor: error
+          ? (theme: any) => theme.palette.error.main
+          : (theme: any) => theme.palette.primary.main,
         backgroundColor: "transparent",
       },
     },
-    ...(error && {
-      "& .MuiInputBase-root": {
-        borderColor: (theme: any) => theme.palette.error.main,
-      },
-    }),
   };
 };
 
@@ -37,9 +36,14 @@ const TextFieldComponent = (props: any) => {
     required = false,
     disabled = false,
     readOnly = false,
-    defaultValue = "",
+    endAdornment = null,
+    onChange = () => {},
+    startAdornment = null,
     borderRadius = ThemeSettings("light").shape.borderRadius,
+    value = { value: "", error: false, id: "", helperText: "" },
   } = props;
+
+  const [focused, setFocused] = useState(false);
 
   return (
     <TextField
@@ -49,12 +53,22 @@ const TextFieldComponent = (props: any) => {
       label={label}
       error={error}
       variant="filled"
+      value={value.value}
       required={required}
       disabled={disabled}
       helperText={helperText}
-      defaultValue={defaultValue}
+      onFocus={() => setFocused(true)}
       sx={styles(error, borderRadius)}
-      InputProps={{ disableUnderline: true, readOnly: readOnly }}
+      onChange={(e) => onChange(value.id, e.target.value)}
+      onBlur={() => {
+        if (value.value === "") setFocused(false);
+      }}
+      InputProps={{
+        readOnly: readOnly,
+        disableUnderline: true,
+        endAdornment: endAdornment,
+        startAdornment: focused ? startAdornment : null,
+      }}
     />
   );
 };

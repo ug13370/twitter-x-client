@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
 import { ThemeSettings } from "../theme";
+import { LoadingButton } from "@mui/lab";
 
 const styles = (
   typography: any,
@@ -32,6 +32,7 @@ const ButtonComponent = (props: any) => {
     fontSize = 1,
     className = "",
     active = false,
+    loading = false,
     disabled = false,
     fullWidth = true,
     startIcon = null,
@@ -41,14 +42,17 @@ const ButtonComponent = (props: any) => {
     typography = "normalButton",
     borderRadius = ThemeSettings("light").shape.borderRadius,
   } = props;
+
   return (
-    <Button
+    <LoadingButton
       key={id}
+      loading={loading}
       onClick={onClick}
       variant={variant}
       disabled={disabled}
       fullWidth={fullWidth}
       className={className}
+      loadingPosition="start"
       startIcon={active ? activeStartIcon : startIcon}
       sx={{
         ...sx,
@@ -56,7 +60,7 @@ const ButtonComponent = (props: any) => {
       }}
     >
       {!showJustIcon && children}
-    </Button>
+    </LoadingButton>
   );
 };
 
