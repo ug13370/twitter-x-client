@@ -1,5 +1,5 @@
 /** React Imports */
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createContext, useContext, useState } from "react";
 
 /** MUI Imports */
@@ -8,6 +8,8 @@ import { IconButton, InputAdornment, useMediaQuery } from "@mui/material";
 /** SCSS Imports */
 
 /** Context Imports */
+import AppContext from "../utils/contexts/App/AppContext";
+import AlertContext from "../utils/contexts/Alert/AlertContext";
 
 /** Component Imports */
 import {
@@ -19,7 +21,6 @@ import {
 import { LogoComponent } from ".";
 import { createNewUser, loginUser } from "../apis/auth";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import AlertContext from "../utils/contexts/Alert/AlertContext";
 
 /** Other Imports */
 
@@ -88,7 +89,7 @@ const AuthFieldsContextProvider = ({ children }: any) => {
 };
 
 const AuthCardActions = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [authLayerFiring, setAuthLayerFiring] = useState(false);
 
@@ -104,6 +105,7 @@ const AuthCardActions = () => {
     setEmailId,
     setPassword,
   } = useContext(AuthFieldsContext);
+  const { setUserDetails } = useContext(AppContext);
   const { setAlert } = useContext(AlertContext);
   const { signupMode, setSignupMode } = useContext(ToggleContext);
 
@@ -125,7 +127,6 @@ const AuthCardActions = () => {
       });
     else
       apiCall_loginUser({ email_id: emailId.value, password: password.value });
-    // navigate("/Home", { replace: true });
   };
 
   const resetAllFields = () => {
@@ -295,6 +296,8 @@ const AuthCardActions = () => {
             message: "Successfully signed in.",
             variant: "filled",
           });
+          setUserDetails({ ...res.details });
+          navigate("/Home", { replace: true });
         } else {
           resetAllErrors();
           handleErroInAuthLayerFiring(res);
