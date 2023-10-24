@@ -19,6 +19,10 @@ const styles = (
         fontSize: `${fontSize}rem`,
       },
     },
+    "& .css-17xq7a1-MuiLoadingButton-loadingIndicator": {
+      position: "static",
+      marginRight: "0.35rem",
+    },
   };
 };
 

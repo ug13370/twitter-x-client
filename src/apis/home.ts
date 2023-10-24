@@ -5,6 +5,10 @@ const headers = {
   "Content-Type": "application/json",
 };
 
+export const createANewTweet = (payload: any) => {
+  return fetchApi(`${apiUrl}/tweet`, "POST", headers, payload);
+};
+
 export const fetchTimeline = () => {
   return fetchApi(`${apiUrl}/tweets`, "GET", headers);
 };

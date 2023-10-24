@@ -1,9 +1,9 @@
-import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
-import { useContext } from "react";
-import { ThemeSettings } from "../theme";
-import AppContext from "../utils/contexts/App/AppContext";
 import { LogoComponent } from ".";
+import { ThemeSettings } from "../theme";
+import { useContext, useState } from "react";
 import { ButtonComponent } from "../core-components";
+import AppContext from "../utils/contexts/App/AppContext";
+import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
 
 const styles = (themeSettings: any) => {
   return {
@@ -41,12 +41,32 @@ const styles = (themeSettings: any) => {
 };
 
 const NewPost = (props: any) => {
-  const { className = "", sx = {} } = props;
+  // Props
+  const {
+    sx = {},
+    className = "",
+    creatingANewTweet = true,
+    apiCall_createANewTweet = (payload: any) => {},
+  } = props;
+
+  // Contexts
   const { theme } = useContext(AppContext);
 
+  // States
+  const [tweetContent, setTweetContent] = useState("");
+
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTweetContent(e.target.value);
     if (e.target.scrollHeight > e.target.clientHeight) {
       e.target.rows = e.target.rows + 1;
+    }
+  };
+
+  const handleCreateNewPostBtnClicked = () => {
+    if (tweetContent === "") return;
+    else {
+      let payload = { type: "post", text_content: tweetContent };
+      apiCall_createANewTweet(payload);
     }
   };
 
@@ -63,18 +83,19 @@ const NewPost = (props: any) => {
           multiline
           minRows={2}
           maxRows={10}
-          inputProps={{ maxLength: 200 }}
+          id="new-post"
+          fullWidth={true}
+          variant="standard"
+          value={tweetContent}
           InputProps={{
             classes: {
               input: "input",
             },
             disableUnderline: true,
           }}
-          id="new-post"
-          fullWidth={true}
-          placeholder="What is happening?"
-          variant="standard"
           onChange={handleTextChange}
+          disabled={creatingANewTweet}
+          placeholder="What is happening?"
         />
         <Divider className="divider" />
         <ButtonComponent
@@ -83,6 +104,8 @@ const NewPost = (props: any) => {
           fullWidth={false}
           variant="contained"
           className="post-btn"
+          loading={creatingANewTweet}
+          onClick={handleCreateNewPostBtnClicked}
         >
           <Typography variant="h6" fontSize={18}>
             Post

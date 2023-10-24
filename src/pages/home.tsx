@@ -4,11 +4,11 @@ import {
   TweetSkeletonComponent,
 } from "../page-components";
 import { ThemeSettings } from "../theme";
-import { fetchTimeline } from "../apis/home";
 import { useContext, useEffect, useState } from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
 import { DataNotFoundComponent } from "../core-components";
+import { createANewTweet, fetchTimeline } from "../apis/home";
 
 const styles = (themeSettings: any) => {
   return {
@@ -72,11 +72,15 @@ const Timeline = (props: any) => {
         />
       )}
       {timeline.length !== 0 &&
-        timeline.map((data: number, index: number) => {
+        timeline.map((tweet: number, index: number) => {
           return (
             <>
-              <TweetCellComponent className="tweetCell" compKey={index} />
-              {index !== 10 && <Divider className="divider" />}
+              <TweetCellComponent
+                tweet={tweet}
+                compKey={index}
+                className="tweetCell"
+              />
+              {timeline.length - 1 !== index && <Divider className="divider" />}
             </>
           );
         })}
@@ -92,6 +96,7 @@ const HomePage = (props: any) => {
 
   // Loaders
   const [timelineFetching, setTimelineFetching] = useState(false);
+  const [creatingANewTweet, setCreatingANewTweet] = useState(false);
 
   // Contexts
   const { theme } = useContext(AppContext);
@@ -104,7 +109,13 @@ const HomePage = (props: any) => {
     setTimelineFetching(true);
     fetchTimeline()
       .then((res: any) => {
-        setTimeline([...res.details]);
+        if (res.status === "success") {
+          setTimeline([...res.details]);
+          console.log("Timeline fetched", res);
+        } else {
+          setTimeline([]);
+          console.log("Timeline fetching failed", res);
+        }
       })
       .catch((error: any) => {
         console.log("apiCall_fetchMyTimeLine error:", error);
@@ -114,10 +125,29 @@ const HomePage = (props: any) => {
       });
   };
 
+  const apiCall_createANewTweet = (payload: any) => {
+    setCreatingANewTweet(true);
+    createANewTweet(payload)
+      .then((res: any) => {
+        console.log("New tweet created", res);
+        apiCall_fetchMyTimeLine();
+      })
+      .catch((error: any) => {
+        console.log("apiCall_createANewTweet error:", error);
+      })
+      .then(() => {
+        setCreatingANewTweet(false);
+      });
+  };
+
   return (
     <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
       <Header className="header" />
-      <NewPostComponent className="show-box-shadow" />
+      <NewPostComponent
+        className="show-box-shadow"
+        creatingANewTweet={creatingANewTweet}
+        apiCall_createANewTweet={apiCall_createANewTweet}
+      />
       <Box className="tweets">
         {timelineFetching && <TimelineLoader />}
         {!timelineFetching && <Timeline timeline={timeline} />}
