@@ -1,14 +1,14 @@
-import { ThemeSettings } from "../theme";
-import { fetchTimeline } from "../apis/home";
-import { useContext, useEffect, useState } from "react";
-import AppContext from "../utils/contexts/App/AppContext";
-import { DataNotFoundComponent } from "../core-components";
-import { Box, Divider, Skeleton, Typography } from "@mui/material";
 import {
   NewPostComponent,
   TweetCellComponent,
   TweetSkeletonComponent,
 } from "../page-components";
+import { ThemeSettings } from "../theme";
+import { fetchTimeline } from "../apis/home";
+import { useContext, useEffect, useState } from "react";
+import { Box, Divider, Typography } from "@mui/material";
+import AppContext from "../utils/contexts/App/AppContext";
+import { DataNotFoundComponent } from "../core-components";
 
 const styles = (themeSettings: any) => {
   return {
@@ -94,7 +94,7 @@ const HomePage = (props: any) => {
   const [timelineFetching, setTimelineFetching] = useState(false);
 
   // Contexts
-  const { theme, userDetails } = useContext(AppContext);
+  const { theme } = useContext(AppContext);
 
   useEffect(() => {
     apiCall_fetchMyTimeLine();
@@ -102,7 +102,7 @@ const HomePage = (props: any) => {
 
   const apiCall_fetchMyTimeLine = () => {
     setTimelineFetching(true);
-    fetchTimeline(userDetails.user_id)
+    fetchTimeline()
       .then((res: any) => {
         setTimeline([...res.details]);
       })

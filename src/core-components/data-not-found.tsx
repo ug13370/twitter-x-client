@@ -8,14 +8,16 @@ const styles = (themeSettings: any) => {
   return {
     root: {
       flex: 1,
+      gap: "0.5rem",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
       justifyContent: "center",
-      gap: "0.5rem",
+
+      opacity: 0.7,
       "& .no-data-found-icon": {
-        height: "10%",
         width: "10%",
+        height: "10%",
       },
       "& .content": {
         display: "flex",

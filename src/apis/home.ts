@@ -5,6 +5,6 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export const fetchTimeline = (userId: string) => {
-  return fetchApi(`${apiUrl}/my_tweets/${userId}`, "GET", headers);
+export const fetchTimeline = () => {
+  return fetchApi(`${apiUrl}/tweets`, "GET", headers);
 };
