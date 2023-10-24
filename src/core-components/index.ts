@@ -4,4 +4,5 @@ export { default as AlertComponent } from "./alert";
 export { default as ButtonComponent } from "./button";
 export { default as TextFieldComponent } from "./text-field";
 export { default as DatePickerComponent } from "./date-picker";
+export { default as DataNotFoundComponent } from "./data-not-found";
 export { default as DarkLightToggleComponent } from "./dark-ligh-toggle";

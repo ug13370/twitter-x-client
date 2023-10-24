@@ -1,11 +1,8 @@
 import fetchApi from "./api";
 
-const apiUrl = "https://twitterx-server-utkarsh.onrender.com";
-// const apiUrl = "http://localhost:4000";
+const apiUrl = process.env.REACT_APP_API_URL;
 const headers = {
   "Content-Type": "application/json",
-  // "Access-Control-Allow-Origin": "*",
-  // "Access-Control-Allow-Credentials": true,
 };
 
 export const createNewUser = (payload: any) => {
@@ -13,5 +10,6 @@ export const createNewUser = (payload: any) => {
 };
 
 export const loginUser = (payload: any) => {
+  console.log(process.env);
   return fetchApi(`${apiUrl}/login`, "POST", headers, payload);
 };

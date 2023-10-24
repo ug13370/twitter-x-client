@@ -14,8 +14,6 @@ const styles = (themeSettings: any) => {
       display: "flex",
       flexDirection: "row",
       alignItems: "flex-start",
-
-      padding: "1.2rem",
     },
     avatar: {
       marginRight: "0.7rem",
@@ -86,10 +84,14 @@ const SingleAction = (props: any) => {
 };
 
 const TweetCellComponent = (props: any) => {
-  const { compKey = "" } = props;
+  const { compKey = "", className = "" } = props;
   const { theme } = useContext(AppContext);
   return (
-    <Box key={compKey} sx={styles(ThemeSettings(theme)).root}>
+    <Box
+      key={compKey}
+      className={className}
+      sx={styles(ThemeSettings(theme)).root}
+    >
       <Avatar sx={styles(ThemeSettings(theme)).avatar}>
         <LogoComponent width="2rem" />
       </Avatar>
