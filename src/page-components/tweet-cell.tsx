@@ -97,6 +97,7 @@ const TweetCellComponent = (props: any) => {
     createdAt,
     no_of_likes,
     text_content,
+    no_of_comments,
   } = tweet;
   return (
     <>
@@ -130,10 +131,10 @@ const TweetCellComponent = (props: any) => {
             </Typography>
             <div className="user-actions">
               <SingleAction
-                sx={{ paddingLeft: "100rem" }}
                 id={"comment"}
+                data={no_of_comments}
+                sx={{ paddingLeft: "100rem" }}
                 icon={<ModeCommentOutlinedIcon />}
-                data={"7,953"}
               />
               <SingleAction
                 id={"like"}

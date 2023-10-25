@@ -1,14 +1,11 @@
-import {
-  NewPostComponent,
-  TweetCellComponent,
-  TweetSkeletonComponent,
-} from "../page-components";
 import { ThemeSettings } from "../theme";
-import { useContext, useEffect, useState } from "react";
+import NewPost from "../page-components/new-post";
 import { Box, Divider, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
 import { DataNotFoundComponent } from "../core-components";
 import { createANewTweet, fetchTimeline } from "../apis/home";
+import { useContext, useEffect, useRef, useState } from "react";
+import { TweetCellComponent, TweetSkeletonComponent } from "../page-components";
 
 const styles = (themeSettings: any) => {
   return {
@@ -101,6 +98,9 @@ const HomePage = (props: any) => {
   // Contexts
   const { theme } = useContext(AppContext);
 
+  // Refs
+  const newPostRef: any = useRef(null);
+
   useEffect(() => {
     apiCall_fetchMyTimeLine();
   }, []);
@@ -135,15 +135,17 @@ const HomePage = (props: any) => {
       .catch((error: any) => {
         console.log("apiCall_createANewTweet error:", error);
       })
-      .then(() => {
+      .finally(() => {
         setCreatingANewTweet(false);
+        newPostRef.current.reset();
       });
   };
 
   return (
     <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
       <Header className="header" />
-      <NewPostComponent
+      <NewPost
+        ref={newPostRef}
         className="show-box-shadow"
         creatingANewTweet={creatingANewTweet}
         apiCall_createANewTweet={apiCall_createANewTweet}

@@ -1,8 +1,8 @@
 import { LogoComponent } from ".";
 import { ThemeSettings } from "../theme";
-import { useContext, useState } from "react";
 import { ButtonComponent } from "../core-components";
 import AppContext from "../utils/contexts/App/AppContext";
+import { forwardRef, useContext, useImperativeHandle, useState } from "react";
 import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
 
 const styles = (themeSettings: any) => {
@@ -40,7 +40,7 @@ const styles = (themeSettings: any) => {
   };
 };
 
-const NewPost = (props: any) => {
+const NewPost = forwardRef((props: any, ref: any) => {
   // Props
   const {
     sx = {},
@@ -54,6 +54,13 @@ const NewPost = (props: any) => {
 
   // States
   const [tweetContent, setTweetContent] = useState("");
+
+  // Imperatives
+  useImperativeHandle(ref, () => ({
+    reset() {
+      setTweetContent("");
+    },
+  }));
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweetContent(e.target.value);
@@ -114,6 +121,6 @@ const NewPost = (props: any) => {
       </Box>
     </Box>
   );
-};
+});
 
 export default NewPost;
