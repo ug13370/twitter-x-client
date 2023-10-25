@@ -46,6 +46,10 @@ const styles = (themeSettings: any) => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
+          ".post-action": {
+            display: "flex",
+            gap: "0.8rem",
+          },
         },
       },
     },
@@ -56,8 +60,10 @@ const NewPost = forwardRef((props: any, ref: any) => {
   // Props
   const {
     sx = {},
+    type = "post", // post/comment
     className = "",
     creatingANewTweet = true,
+    closeNewPostSection = () => {},
     apiCall_createANewTweet = (payload: any) => {},
   } = props;
 
@@ -85,9 +91,13 @@ const NewPost = forwardRef((props: any, ref: any) => {
   const handleCreateNewPostBtnClicked = () => {
     if (tweetContent === "") return;
     else {
-      let payload = { type: "post", text_content: tweetContent };
+      let payload = { text_content: tweetContent };
       apiCall_createANewTweet(payload);
     }
+  };
+
+  const handleCancelPostBtnClicked = () => {
+    closeNewPostSection();
   };
 
   // Emoji popover
@@ -135,7 +145,9 @@ const NewPost = forwardRef((props: any, ref: any) => {
           }}
           onChange={handleTextChange}
           disabled={creatingANewTweet}
-          placeholder="What is happening?"
+          placeholder={
+            type === "post" ? "What is happening?" : "Comment on this post"
+          }
         />
         <Divider className="divider" />
         <Box className="post-actions">
@@ -177,19 +189,33 @@ const NewPost = forwardRef((props: any, ref: any) => {
               />
             </Popover>
           </Box>
-          <ButtonComponent
-            padding={1.1}
-            borderRadius={10}
-            fullWidth={false}
-            variant="contained"
-            className="post-btn"
-            loading={creatingANewTweet}
-            onClick={handleCreateNewPostBtnClicked}
-          >
-            <Typography variant="h6" fontSize={18}>
-              Post
-            </Typography>
-          </ButtonComponent>
+          <Box className="post-action">
+            <ButtonComponent
+              padding={0.7}
+              borderRadius={10}
+              fullWidth={false}
+              variant="contained"
+              loading={creatingANewTweet}
+              onClick={handleCreateNewPostBtnClicked}
+            >
+              <Typography variant="h6" fontSize={18}>
+                {type === "post" ? "Post" : "Comment"}
+              </Typography>
+            </ButtonComponent>
+            {type === "comment" && (
+              <ButtonComponent
+                padding={0.7}
+                borderRadius={10}
+                fullWidth={false}
+                variant="outlined"
+                onClick={handleCancelPostBtnClicked}
+              >
+                <Typography variant="h6" fontSize={18}>
+                  Cancel
+                </Typography>
+              </ButtonComponent>
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>

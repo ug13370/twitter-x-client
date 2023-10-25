@@ -60,6 +60,8 @@ const TimelineLoader = () => {
 
 const Timeline = (props: any) => {
   const { timeline } = props;
+  const [commentBoxOpenedForTweetId, setCommentBoxOpenedForTweetId] =
+    useState("");
   return (
     <>
       {timeline.length === 0 && (
@@ -75,6 +77,8 @@ const Timeline = (props: any) => {
               <TweetCellComponent
                 tweet={tweet}
                 compKey={index}
+                commentBoxOpenedForTweetId={commentBoxOpenedForTweetId}
+                setCommentBoxOpenedForTweetId={setCommentBoxOpenedForTweetId}
                 className="tweetCell"
               />
               {timeline.length - 1 !== index && <Divider className="divider" />}
@@ -127,7 +131,7 @@ const HomePage = (props: any) => {
 
   const apiCall_createANewTweet = (payload: any) => {
     setCreatingANewTweet(true);
-    createANewTweet(payload)
+    createANewTweet({ type: "post", ...payload })
       .then((res: any) => {
         console.log("New tweet created", res);
         apiCall_fetchMyTimeLine();

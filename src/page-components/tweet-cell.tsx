@@ -1,7 +1,8 @@
 import moment from "moment";
+import NewPost from "./new-post";
 import { LogoComponent } from ".";
-import { useContext } from "react";
 import { ThemeSettings } from "../theme";
+import { useContext, useState } from "react";
 import { ButtonComponent } from "../core-components";
 import { Avatar, Box, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
@@ -86,8 +87,20 @@ const SingleAction = (props: any) => {
 };
 
 const TweetCellComponent = (props: any) => {
-  const { compKey = "", className = "", tweet = null } = props;
+  // Props
+  const {
+    tweet = null,
+    compKey = "",
+    className = "",
+    commentBoxOpenedForTweetId,
+    setCommentBoxOpenedForTweetId,
+  } = props;
+
+  // Contexts
   const { theme } = useContext(AppContext);
+
+  // States
+  const [creatingANewTweet, setCreatingANewTweet] = useState(false);
 
   const {
     medias,
@@ -102,48 +115,62 @@ const TweetCellComponent = (props: any) => {
   return (
     <>
       {tweet && (
-        <Box
-          key={compKey}
-          className={className}
-          sx={styles(ThemeSettings(theme)).root}
-        >
-          <Avatar sx={styles(ThemeSettings(theme)).avatar}>
-            <LogoComponent width="2rem" />
-          </Avatar>
-          <Box sx={styles(ThemeSettings(theme)).content}>
-            <div className="user-section">
-              <div className="user-info">
-                <Typography variant="h6">{user_name}</Typography>
-                <Typography variant="subtitle1">{user_id}</Typography>
+        <>
+          <Box
+            key={compKey}
+            className={className}
+            sx={styles(ThemeSettings(theme)).root}
+          >
+            <Avatar sx={styles(ThemeSettings(theme)).avatar}>
+              <LogoComponent width="2rem" />
+            </Avatar>
+            <Box sx={styles(ThemeSettings(theme)).content}>
+              <div className="user-section">
+                <div className="user-info">
+                  <Typography variant="h6">{user_name}</Typography>
+                  <Typography variant="subtitle1">{user_id}</Typography>
+                </div>
+                <ButtonComponent
+                  id="tweetThreeDots"
+                  fullWidth={false}
+                  borderRadius={10}
+                  padding={0}
+                >
+                  <MoreHorizOutlinedIcon />
+                </ButtonComponent>
               </div>
-              <ButtonComponent
-                id="tweetThreeDots"
-                fullWidth={false}
-                borderRadius={10}
-                padding={0}
-              >
-                <MoreHorizOutlinedIcon />
-              </ButtonComponent>
-            </div>
-            <Typography variant="body1">{text_content}</Typography>
-            <Typography variant="subtitle1">
-              {moment(createdAt).format("h:mm A · MMM D, YYYY")}
-            </Typography>
-            <div className="user-actions">
-              <SingleAction
-                id={"comment"}
-                data={no_of_comments}
-                sx={{ paddingLeft: "100rem" }}
-                icon={<ModeCommentOutlinedIcon />}
-              />
-              <SingleAction
-                id={"like"}
-                icon={<FavoriteBorderOutlinedIcon />}
-                data={no_of_likes}
-              />
-            </div>
+              <Typography variant="body1">{text_content}</Typography>
+              <Typography variant="subtitle1">
+                {moment(createdAt).format("h:mm A · MMM D, YYYY")}
+              </Typography>
+              <div className="user-actions">
+                <SingleAction
+                  id={"comment"}
+                  data={no_of_comments}
+                  sx={{ paddingLeft: "100rem" }}
+                  icon={<ModeCommentOutlinedIcon />}
+                  onClick={() => {
+                    setCommentBoxOpenedForTweetId(tweet_id);
+                  }}
+                />
+                <SingleAction
+                  id={"like"}
+                  icon={<FavoriteBorderOutlinedIcon />}
+                  data={no_of_likes}
+                />
+              </div>
+            </Box>
           </Box>
-        </Box>
+          {tweet_id === commentBoxOpenedForTweetId && (
+            <NewPost
+              type="comment"
+              closeNewPostSection={() => {
+                setCommentBoxOpenedForTweetId("");
+              }}
+              creatingANewTweet={creatingANewTweet}
+            />
+          )}
+        </>
       )}
     </>
   );
