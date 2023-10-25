@@ -1,9 +1,19 @@
+import {
+  Box,
+  Avatar,
+  Divider,
+  Popover,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { LogoComponent } from ".";
 import { ThemeSettings } from "../theme";
 import { ButtonComponent } from "../core-components";
 import AppContext from "../utils/contexts/App/AppContext";
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
+import EmojiPicker, { EmojiStyle, Theme } from "emoji-picker-react";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import { forwardRef, useContext, useImperativeHandle, useState } from "react";
-import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
 
 const styles = (themeSettings: any) => {
   return {
@@ -23,7 +33,6 @@ const styles = (themeSettings: any) => {
       ".text-box-wrapper": {
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start",
         width: "100%",
         "& .MuiInput-root": {
           ".input": { fontSize: "1.5rem" },
@@ -32,8 +41,11 @@ const styles = (themeSettings: any) => {
           marginBottom: "0.7rem",
           width: "100%",
         },
-        ".post-btn": {
-          alignSelf: "flex-end",
+        ".post-actions": {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
         },
       },
     },
@@ -54,6 +66,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
 
   // States
   const [tweetContent, setTweetContent] = useState("");
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   // Imperatives
   useImperativeHandle(ref, () => ({
@@ -75,6 +88,26 @@ const NewPost = forwardRef((props: any, ref: any) => {
       let payload = { type: "post", text_content: tweetContent };
       apiCall_createANewTweet(payload);
     }
+  };
+
+  // Emoji popover
+  const handleAddEmoticonIconClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseEmoticonPanel = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEmojiClick = (emojiData: any) => {
+    setTweetContent((prevTweetContent: any) => {
+      return (
+        prevTweetContent +
+        (emojiData.isCustom ? emojiData.unified : emojiData.emoji)
+      );
+    });
   };
 
   return (
@@ -105,19 +138,59 @@ const NewPost = forwardRef((props: any, ref: any) => {
           placeholder="What is happening?"
         />
         <Divider className="divider" />
-        <ButtonComponent
-          padding={1.1}
-          borderRadius={10}
-          fullWidth={false}
-          variant="contained"
-          className="post-btn"
-          loading={creatingANewTweet}
-          onClick={handleCreateNewPostBtnClicked}
-        >
-          <Typography variant="h6" fontSize={18}>
-            Post
-          </Typography>
-        </ButtonComponent>
+        <Box className="post-actions">
+          <Box className="post-icons">
+            <ButtonComponent
+              padding={0.4}
+              fullWidth={false}
+              borderRadius={10}
+              id="insert-medias"
+            >
+              <WallpaperIcon />
+            </ButtonComponent>
+
+            <ButtonComponent
+              padding={0.4}
+              fullWidth={false}
+              borderRadius={10}
+              id="insert-emoticons"
+              onClick={handleAddEmoticonIconClick}
+            >
+              <InsertEmoticonIcon />
+            </ButtonComponent>
+
+            <Popover
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              anchorEl={anchorEl}
+              id="emoticon-popover"
+              open={Boolean(anchorEl)}
+              onClose={handleCloseEmoticonPanel}
+            >
+              <EmojiPicker
+                theme={Theme.AUTO}
+                onEmojiClick={handleEmojiClick}
+                autoFocusSearch={false}
+                emojiStyle={EmojiStyle.NATIVE}
+              />
+            </Popover>
+          </Box>
+          <ButtonComponent
+            padding={1.1}
+            borderRadius={10}
+            fullWidth={false}
+            variant="contained"
+            className="post-btn"
+            loading={creatingANewTweet}
+            onClick={handleCreateNewPostBtnClicked}
+          >
+            <Typography variant="h6" fontSize={18}>
+              Post
+            </Typography>
+          </ButtonComponent>
+        </Box>
       </Box>
     </Box>
   );
