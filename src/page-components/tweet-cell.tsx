@@ -93,7 +93,9 @@ const TweetCellComponent = (props: any) => {
     compKey = "",
     className = "",
     commentBoxOpenedForTweetId,
+    creatingANewComment = false,
     setCommentBoxOpenedForTweetId,
+    apiCall_createANewTweet = (payload: any) => {},
   } = props;
 
   // Contexts
@@ -112,6 +114,7 @@ const TweetCellComponent = (props: any) => {
     text_content,
     no_of_comments,
   } = tweet;
+
   return (
     <>
       {tweet && (
@@ -167,7 +170,13 @@ const TweetCellComponent = (props: any) => {
               closeNewPostSection={() => {
                 setCommentBoxOpenedForTweetId("");
               }}
-              creatingANewTweet={creatingANewTweet}
+              creatingTweet={creatingANewComment}
+              apiCall_createANewTweet={(payload: any) => {
+                apiCall_createANewTweet({
+                  parent_tweet_id: tweet_id,
+                  ...payload,
+                });
+              }}
             />
           )}
         </>

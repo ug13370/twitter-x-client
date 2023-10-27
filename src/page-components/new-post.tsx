@@ -62,7 +62,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
     sx = {},
     type = "post", // post/comment
     className = "",
-    creatingANewTweet = true,
+    creatingTweet = false,
     closeNewPostSection = () => {},
     apiCall_createANewTweet = (payload: any) => {},
   } = props;
@@ -91,7 +91,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
   const handleCreateNewPostBtnClicked = () => {
     if (tweetContent === "") return;
     else {
-      let payload = { text_content: tweetContent };
+      let payload = { text_content: tweetContent, type };
       apiCall_createANewTweet(payload);
     }
   };
@@ -144,7 +144,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
             disableUnderline: true,
           }}
           onChange={handleTextChange}
-          disabled={creatingANewTweet}
+          disabled={creatingTweet}
           placeholder={
             type === "post" ? "What is happening?" : "Comment on this post"
           }
@@ -195,7 +195,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
               borderRadius={10}
               fullWidth={false}
               variant="contained"
-              loading={creatingANewTweet}
+              loading={creatingTweet}
               onClick={handleCreateNewPostBtnClicked}
             >
               <Typography variant="h6" fontSize={18}>

@@ -59,7 +59,11 @@ const TimelineLoader = () => {
 };
 
 const Timeline = (props: any) => {
-  const { timeline } = props;
+  const {
+    timeline = [],
+    creatingANewComment,
+    apiCall_createANewTweet = (payload: any) => {},
+  } = props;
   const [commentBoxOpenedForTweetId, setCommentBoxOpenedForTweetId] =
     useState("");
   return (
@@ -77,9 +81,11 @@ const Timeline = (props: any) => {
               <TweetCellComponent
                 tweet={tweet}
                 compKey={index}
+                className="tweetCell"
+                creatingANewComment={creatingANewComment}
+                apiCall_createANewTweet={apiCall_createANewTweet}
                 commentBoxOpenedForTweetId={commentBoxOpenedForTweetId}
                 setCommentBoxOpenedForTweetId={setCommentBoxOpenedForTweetId}
-                className="tweetCell"
               />
               {timeline.length - 1 !== index && <Divider className="divider" />}
             </>
@@ -98,6 +104,7 @@ const HomePage = (props: any) => {
   // Loaders
   const [timelineFetching, setTimelineFetching] = useState(false);
   const [creatingANewTweet, setCreatingANewTweet] = useState(false);
+  const [creatingANewComment, setCreatingANewComment] = useState(false);
 
   // Contexts
   const { theme } = useContext(AppContext);
@@ -130,8 +137,10 @@ const HomePage = (props: any) => {
   };
 
   const apiCall_createANewTweet = (payload: any) => {
-    setCreatingANewTweet(true);
-    createANewTweet({ type: "post", ...payload })
+    if (payload.parent_tweet_id) setCreatingANewComment(true);
+    else setCreatingANewTweet(true);
+
+    createANewTweet(payload)
       .then((res: any) => {
         console.log("New tweet created", res);
         apiCall_fetchMyTimeLine();
@@ -141,6 +150,7 @@ const HomePage = (props: any) => {
       })
       .finally(() => {
         setCreatingANewTweet(false);
+        setCreatingANewComment(false);
         newPostRef.current.reset();
       });
   };
@@ -151,12 +161,18 @@ const HomePage = (props: any) => {
       <NewPost
         ref={newPostRef}
         className="show-box-shadow"
-        creatingANewTweet={creatingANewTweet}
+        creatingTweet={creatingANewTweet}
         apiCall_createANewTweet={apiCall_createANewTweet}
       />
       <Box className="tweets">
         {timelineFetching && <TimelineLoader />}
-        {!timelineFetching && <Timeline timeline={timeline} />}
+        {!timelineFetching && (
+          <Timeline
+            timeline={timeline}
+            creatingANewComment={creatingANewComment}
+            apiCall_createANewTweet={apiCall_createANewTweet}
+          />
+        )}
       </Box>
     </Box>
   );
