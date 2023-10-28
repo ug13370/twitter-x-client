@@ -28,7 +28,7 @@ const styles = (themeSettings: any, showJustIcons: boolean) => {
 };
 
 const AccountMenu = (props: any) => {
-  const { sx = {}, showJustIcons = false } = props;
+  const { sx = {}, showJustIcons = false, userDetails = {} } = props;
   const { theme } = useContext(AppContext);
   return (
     <ButtonComponent
@@ -41,8 +41,8 @@ const AccountMenu = (props: any) => {
       </Avatar>
       {!showJustIcons && (
         <Box sx={styles(ThemeSettings(theme), showJustIcons).userInfo}>
-          <Typography variant="h6">Utkarsh Gupta</Typography>
-          <Typography variant="subtitle1">@utkarsh1508999</Typography>
+          <Typography variant="h6">{userDetails.name}</Typography>
+          <Typography variant="subtitle1">{userDetails.user_id}</Typography>
         </Box>
       )}
     </ButtonComponent>

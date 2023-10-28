@@ -4,10 +4,12 @@ import {
   WhoToFollowCardComponent,
 } from "../page-components";
 import HomePage from "./home";
+import { useContext } from "react";
 import ProfilePage from "./profile";
 import HomeIcon from "@mui/icons-material/Home";
 import { Box, useMediaQuery } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import AppContext from "../utils/contexts/App/AppContext";
 import AccountMenu from "../page-components/account-menu";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -94,6 +96,8 @@ const Landing = (props: any) => {
 
   const location = useLocation();
 
+  const { userDetails } = useContext(AppContext);
+
   return (
     <>
       <Box sx={styles().root}>
@@ -109,13 +113,16 @@ const Landing = (props: any) => {
           />
           <AccountMenu
             showJustIcons={lgMatches}
+            userDetails={userDetails}
             sx={styles().navSection.AccountComponent}
           />
         </Box>
+
         {location.pathname === "/Home" && (
           <HomePage sx={styles().tweetsSection} />
         )}
         {location.pathname === "/Profile" && <ProfilePage />}
+
         {!mdMatches && (
           <WhoToFollowCardComponent
             lgMatches={lgMatches}

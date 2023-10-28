@@ -56,49 +56,10 @@ const styles = (themeSettings: any) => {
   };
 };
 
-const NewPost = forwardRef((props: any, ref: any) => {
-  // Props
-  const {
-    sx = {},
-    type = "post", // post/comment
-    className = "",
-    creatingTweet = false,
-    closeNewPostSection = () => {},
-    apiCall_createANewTweet = (payload: any, type: string) => {},
-  } = props;
+const PostIcons = (props: any) => {
+  const { setTweetContent } = props;
 
-  // Contexts
-  const { theme } = useContext(AppContext);
-
-  // States
-  const [tweetContent, setTweetContent] = useState("");
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
-  // Imperatives
-  useImperativeHandle(ref, () => ({
-    reset() {
-      setTweetContent("");
-    },
-  }));
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTweetContent(e.target.value);
-    if (e.target.scrollHeight > e.target.clientHeight) {
-      e.target.rows = e.target.rows + 1;
-    }
-  };
-
-  const handleCreateNewPostBtnClicked = () => {
-    if (tweetContent === "") return;
-    else {
-      let payload = { text_content: tweetContent, type };
-      apiCall_createANewTweet(payload, type);
-    }
-  };
-
-  const handleCancelPostBtnClicked = () => {
-    closeNewPostSection();
-  };
 
   // Emoji popover
   const handleAddEmoticonIconClick = (
@@ -118,6 +79,131 @@ const NewPost = forwardRef((props: any, ref: any) => {
         (emojiData.isCustom ? emojiData.unified : emojiData.emoji)
       );
     });
+  };
+
+  return (
+    <Box className="post-icons">
+      <ButtonComponent
+        padding={0.4}
+        fullWidth={false}
+        borderRadius={10}
+        id="insert-medias"
+      >
+        <WallpaperIcon />
+      </ButtonComponent>
+
+      <ButtonComponent
+        padding={0.4}
+        fullWidth={false}
+        borderRadius={10}
+        id="insert-emoticons"
+        onClick={handleAddEmoticonIconClick}
+      >
+        <InsertEmoticonIcon />
+      </ButtonComponent>
+
+      <Popover
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        anchorEl={anchorEl}
+        id="emoticon-popover"
+        open={Boolean(anchorEl)}
+        onClose={handleCloseEmoticonPanel}
+      >
+        <EmojiPicker
+          theme={Theme.AUTO}
+          onEmojiClick={handleEmojiClick}
+          autoFocusSearch={false}
+          emojiStyle={EmojiStyle.NATIVE}
+        />
+      </Popover>
+    </Box>
+  );
+};
+
+const PostActions = (props: any) => {
+  const {
+    type,
+    tweetContent,
+    creatingTweet,
+    closeNewPostSection,
+    apiCall_createANewTweet,
+  } = props;
+
+  const handleCreateNewPostBtnClicked = () => {
+    if (tweetContent === "") return;
+    else {
+      let payload = { text_content: tweetContent, type };
+      apiCall_createANewTweet(payload, type);
+    }
+  };
+
+  const handleCancelPostBtnClicked = () => {
+    closeNewPostSection();
+  };
+
+  return (
+    <Box className="post-action">
+      <ButtonComponent
+        padding={0.7}
+        borderRadius={10}
+        fullWidth={false}
+        variant="contained"
+        loading={creatingTweet}
+        onClick={handleCreateNewPostBtnClicked}
+      >
+        <Typography variant="h6" fontSize={18}>
+          {type === "post" ? "Post" : "Comment"}
+        </Typography>
+      </ButtonComponent>
+      {type === "comment" && (
+        <ButtonComponent
+          padding={0.7}
+          borderRadius={10}
+          fullWidth={false}
+          variant="outlined"
+          onClick={handleCancelPostBtnClicked}
+        >
+          <Typography variant="h6" fontSize={18}>
+            Cancel
+          </Typography>
+        </ButtonComponent>
+      )}
+    </Box>
+  );
+};
+
+const NewPost = forwardRef((props: any, ref: any) => {
+  // Props
+  const {
+    sx = {},
+    type = "post", // post/comment
+    className = "",
+    creatingTweet = false,
+    closeNewPostSection = () => {},
+    apiCall_createANewTweet = (payload: any, type: string) => {},
+  } = props;
+
+  // Contexts
+  const { theme } = useContext(AppContext);
+
+  // States
+  const [tweetContent, setTweetContent] = useState("");
+
+  // Imperatives
+  useImperativeHandle(ref, () => ({
+    reset() {
+      setTweetContent("");
+    },
+  }));
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTweetContent(e.target.value);
+    if (e.target.scrollHeight > e.target.clientHeight) {
+      e.target.rows = e.target.rows + 1;
+    }
   };
 
   return (
@@ -151,71 +237,14 @@ const NewPost = forwardRef((props: any, ref: any) => {
         />
         <Divider className="divider" />
         <Box className="post-actions">
-          <Box className="post-icons">
-            <ButtonComponent
-              padding={0.4}
-              fullWidth={false}
-              borderRadius={10}
-              id="insert-medias"
-            >
-              <WallpaperIcon />
-            </ButtonComponent>
-
-            <ButtonComponent
-              padding={0.4}
-              fullWidth={false}
-              borderRadius={10}
-              id="insert-emoticons"
-              onClick={handleAddEmoticonIconClick}
-            >
-              <InsertEmoticonIcon />
-            </ButtonComponent>
-
-            <Popover
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              anchorEl={anchorEl}
-              id="emoticon-popover"
-              open={Boolean(anchorEl)}
-              onClose={handleCloseEmoticonPanel}
-            >
-              <EmojiPicker
-                theme={Theme.AUTO}
-                onEmojiClick={handleEmojiClick}
-                autoFocusSearch={false}
-                emojiStyle={EmojiStyle.NATIVE}
-              />
-            </Popover>
-          </Box>
-          <Box className="post-action">
-            <ButtonComponent
-              padding={0.7}
-              borderRadius={10}
-              fullWidth={false}
-              variant="contained"
-              loading={creatingTweet}
-              onClick={handleCreateNewPostBtnClicked}
-            >
-              <Typography variant="h6" fontSize={18}>
-                {type === "post" ? "Post" : "Comment"}
-              </Typography>
-            </ButtonComponent>
-            {type === "comment" && (
-              <ButtonComponent
-                padding={0.7}
-                borderRadius={10}
-                fullWidth={false}
-                variant="outlined"
-                onClick={handleCancelPostBtnClicked}
-              >
-                <Typography variant="h6" fontSize={18}>
-                  Cancel
-                </Typography>
-              </ButtonComponent>
-            )}
-          </Box>
+          <PostIcons setTweetContent={setTweetContent} />
+          <PostActions
+            type={type}
+            tweetContent={tweetContent}
+            creatingTweet={creatingTweet}
+            closeNewPostSection={closeNewPostSection}
+            apiCall_createANewTweet={apiCall_createANewTweet}
+          />
         </Box>
       </Box>
     </Box>
