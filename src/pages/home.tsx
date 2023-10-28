@@ -3,7 +3,7 @@ import NewPost from "../page-components/new-post";
 import { Box, Divider, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
 import { DataNotFoundComponent } from "../core-components";
-import { createANewTweet, fetchTimeline } from "../apis/home";
+import { createANewTweet, fetchTimeline, giveFeedback } from "../apis/home";
 import { useContext, useEffect, useRef, useState } from "react";
 import { TweetCellComponent, TweetSkeletonComponent } from "../page-components";
 
@@ -63,6 +63,7 @@ const Timeline = (props: any) => {
     timeline = [],
     creatingANewComment,
     apiCall_createANewTweet = (payload: any) => {},
+    apiCall_giveFeedbackToATweet = (payload: any) => {},
   } = props;
   const [commentBoxOpenedForTweetId, setCommentBoxOpenedForTweetId] =
     useState("");
@@ -85,6 +86,7 @@ const Timeline = (props: any) => {
                 creatingANewComment={creatingANewComment}
                 apiCall_createANewTweet={apiCall_createANewTweet}
                 commentBoxOpenedForTweetId={commentBoxOpenedForTweetId}
+                apiCall_giveFeedbackToATweet={apiCall_giveFeedbackToATweet}
                 setCommentBoxOpenedForTweetId={setCommentBoxOpenedForTweetId}
               />
               {timeline.length - 1 !== index && <Divider className="divider" />}
@@ -136,7 +138,7 @@ const HomePage = (props: any) => {
       });
   };
 
-  const apiCall_createANewTweet = (payload: any) => {
+  const apiCall_createANewTweet = (payload: any, type: string) => {
     if (payload.parent_tweet_id) setCreatingANewComment(true);
     else setCreatingANewTweet(true);
 
@@ -155,6 +157,18 @@ const HomePage = (props: any) => {
       });
   };
 
+  const apiCall_giveFeedbackToATweet = (payload: any) => {
+    giveFeedback(payload)
+      .then((res: any) => {
+        if (res.status === "success") apiCall_fetchMyTimeLine();
+        else console.log("Feedback registration failed", res);
+      })
+      .catch((error: any) => {
+        console.log("apiCall_giveFeedbackToATweet error:", error);
+      })
+      .finally(() => {});
+  };
+
   return (
     <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
       <Header className="header" />
@@ -171,6 +185,7 @@ const HomePage = (props: any) => {
             timeline={timeline}
             creatingANewComment={creatingANewComment}
             apiCall_createANewTweet={apiCall_createANewTweet}
+            apiCall_giveFeedbackToATweet={apiCall_giveFeedbackToATweet}
           />
         )}
       </Box>

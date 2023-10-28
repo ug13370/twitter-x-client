@@ -5,6 +5,7 @@ import { ThemeSettings } from "../theme";
 import { useContext, useState } from "react";
 import { ButtonComponent } from "../core-components";
 import { Avatar, Box, Typography } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import AppContext from "../utils/contexts/App/AppContext";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
@@ -96,6 +97,7 @@ const TweetCellComponent = (props: any) => {
     creatingANewComment = false,
     setCommentBoxOpenedForTweetId,
     apiCall_createANewTweet = (payload: any) => {},
+    apiCall_giveFeedbackToATweet = (payload: any) => {},
   } = props;
 
   // Contexts
@@ -113,7 +115,10 @@ const TweetCellComponent = (props: any) => {
     no_of_likes,
     text_content,
     no_of_comments,
+    viewer_details,
   } = tweet;
+
+  const { user_liked_this_tweet } = viewer_details;
 
   return (
     <>
@@ -158,8 +163,20 @@ const TweetCellComponent = (props: any) => {
                 />
                 <SingleAction
                   id={"like"}
-                  icon={<FavoriteBorderOutlinedIcon />}
                   data={no_of_likes}
+                  icon={
+                    user_liked_this_tweet ? (
+                      <FavoriteIcon />
+                    ) : (
+                      <FavoriteBorderOutlinedIcon />
+                    )
+                  }
+                  onClick={() => {
+                    apiCall_giveFeedbackToATweet({
+                      tweet_id,
+                      feedback: !user_liked_this_tweet,
+                    });
+                  }}
                 />
               </div>
             </Box>

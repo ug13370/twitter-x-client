@@ -64,7 +64,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
     className = "",
     creatingTweet = false,
     closeNewPostSection = () => {},
-    apiCall_createANewTweet = (payload: any) => {},
+    apiCall_createANewTweet = (payload: any, type: string) => {},
   } = props;
 
   // Contexts
@@ -92,7 +92,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
     if (tweetContent === "") return;
     else {
       let payload = { text_content: tweetContent, type };
-      apiCall_createANewTweet(payload);
+      apiCall_createANewTweet(payload, type);
     }
   };
 
