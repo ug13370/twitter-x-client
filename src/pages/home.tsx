@@ -24,7 +24,7 @@ const styles = (themeSettings: any) => {
           margin: "1.2rem",
         },
         "> *.divider": {
-          margin: "0rem 2.8rem",
+          // margin: "0rem 2.8rem",
         },
       },
       ".show-box-shadow": {
@@ -170,25 +170,29 @@ const HomePage = (props: any) => {
   };
 
   return (
-    <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
-      <Header className="header" />
-      <NewPost
-        ref={newPostRef}
-        className="show-box-shadow"
-        creatingTweet={creatingANewTweet}
-        apiCall_createANewTweet={apiCall_createANewTweet}
-      />
-      <Box className="tweets">
-        {timelineFetching && <TimelineLoader />}
-        {!timelineFetching && (
-          <Timeline
-            timeline={timeline}
-            creatingANewComment={creatingANewComment}
-            apiCall_createANewTweet={apiCall_createANewTweet}
-            apiCall_giveFeedbackToATweet={apiCall_giveFeedbackToATweet}
-          />
-        )}
+    <Box sx={{ display: "flex" }}>
+      <Divider orientation="vertical" />
+      <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
+        <Header className="header" />
+        <NewPost
+          ref={newPostRef}
+          className="show-box-shadow"
+          creatingTweet={creatingANewTweet}
+          apiCall_createANewTweet={apiCall_createANewTweet}
+        />
+        <Box className="tweets">
+          {timelineFetching && <TimelineLoader />}
+          {!timelineFetching && (
+            <Timeline
+              timeline={timeline}
+              creatingANewComment={creatingANewComment}
+              apiCall_createANewTweet={apiCall_createANewTweet}
+              apiCall_giveFeedbackToATweet={apiCall_giveFeedbackToATweet}
+            />
+          )}
+        </Box>
       </Box>
+      <Divider orientation="vertical" />
     </Box>
   );
 };

@@ -7,7 +7,7 @@ import HomePage from "./home";
 import { useContext } from "react";
 import ProfilePage from "./profile";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, Divider, useMediaQuery } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AppContext from "../utils/contexts/App/AppContext";
 import AccountMenu from "../page-components/account-menu";
@@ -46,6 +46,8 @@ const styles = () => {
     },
     tweetsSection: {
       width: "40rem",
+      // borderStyle: "solid",
+      // borderWidth: "0px 1px 0px 1px",
     },
     whoToFollow: {
       margin: "1rem 1rem 0rem 0rem",

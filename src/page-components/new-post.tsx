@@ -14,16 +14,15 @@ import {
   Typography,
   ImageList,
   ImageListItem,
-  Button,
 } from "@mui/material";
 import { LogoComponent } from ".";
 import { ThemeSettings } from "../theme";
+import CloseIcon from "@mui/icons-material/Close";
 import { ButtonComponent } from "../core-components";
 import AppContext from "../utils/contexts/App/AppContext";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import EmojiPicker, { EmojiStyle, Theme } from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import CloseIcon from "@mui/icons-material/Close";
 
 const styles = (themeSettings: any) => {
   return {
@@ -162,6 +161,7 @@ const PostActions = (props: any) => {
   const {
     type,
     tweetContent,
+    imagePreviews,
     creatingTweet,
     closeNewPostSection,
     apiCall_createANewTweet,
@@ -311,8 +311,8 @@ const NewPost = forwardRef((props: any, ref: any) => {
 
   return (
     <Box
-      sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}
       className={className}
+      sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}
     >
       <Avatar className="avatar">
         <LogoComponent width="2rem" />
@@ -351,6 +351,7 @@ const NewPost = forwardRef((props: any, ref: any) => {
           <PostActions
             type={type}
             tweetContent={tweetContent}
+            imagePreviews={imagePreviews}
             creatingTweet={creatingTweet}
             closeNewPostSection={closeNewPostSection}
             apiCall_createANewTweet={apiCall_createANewTweet}
