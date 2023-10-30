@@ -7,7 +7,7 @@ import HomePage from "./home";
 import { useContext } from "react";
 import ProfilePage from "./profile";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, Divider, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AppContext from "../utils/contexts/App/AppContext";
 import AccountMenu from "../page-components/account-menu";

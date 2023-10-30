@@ -168,9 +168,19 @@ const PostActions = (props: any) => {
   } = props;
 
   const handleCreateNewPostBtnClicked = () => {
-    if (tweetContent === "") return;
+    if (tweetContent === "" && imagePreviews.lenght === 0) return;
     else {
-      let payload = { text_content: tweetContent, type };
+      let payload = {
+        type,
+        text_content: tweetContent,
+        medias: imagePreviews.map((preview: any) => {
+          return {
+            description: "",
+            data: preview.src,
+            name: preview.name,
+          };
+        }),
+      };
       apiCall_createANewTweet(payload, type);
     }
   };

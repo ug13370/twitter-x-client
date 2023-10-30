@@ -1,10 +1,16 @@
+import {
+  Box,
+  Avatar,
+  ImageList,
+  Typography,
+  ImageListItem,
+} from "@mui/material";
 import moment from "moment";
 import NewPost from "./new-post";
 import { LogoComponent } from ".";
 import { ThemeSettings } from "../theme";
 import { useContext, useState } from "react";
 import { ButtonComponent } from "../core-components";
-import { Avatar, Box, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AppContext from "../utils/contexts/App/AppContext";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
@@ -87,6 +93,29 @@ const SingleAction = (props: any) => {
   );
 };
 
+const ImageListComp = (props: any) => {
+  const { medias = [] } = props;
+  return (
+    <ImageList
+      gap={10}
+      variant="masonry"
+      sx={{ marginBottom: "0.7rem" }}
+      cols={medias.length > 1 ? 2 : 1}
+    >
+      {medias.map((item: any) => (
+        <ImageListItem key={item.src} sx={{ position: "relative" }}>
+          <img
+            alt={"Imagr"}
+            loading="lazy"
+            src={item.data}
+            style={{ borderRadius: 15 }}
+          />
+        </ImageListItem>
+      ))}
+    </ImageList>
+  );
+};
+
 const TweetCellComponent = (props: any) => {
   // Props
   const {
@@ -102,9 +131,6 @@ const TweetCellComponent = (props: any) => {
 
   // Contexts
   const { theme } = useContext(AppContext);
-
-  // States
-  const [creatingANewTweet, setCreatingANewTweet] = useState(false);
 
   const {
     medias,
@@ -148,6 +174,7 @@ const TweetCellComponent = (props: any) => {
                 </ButtonComponent>
               </div>
               <Typography variant="body1">{text_content}</Typography>
+              <ImageListComp medias={medias} />
               <Typography variant="subtitle1">
                 {moment(createdAt).format("h:mm A · MMM D, YYYY")}
               </Typography>
