@@ -13,8 +13,10 @@ async function apiCall<T>(
   };
 
   const response = await fetch(url, fetchObj);
-  if (response.status === 401)
+  /** Unauthorized or refresh status code from backend */
+  if (response.status === 401 || response.status === 205)
     window.location.href = `${process.env.REACT_APP_URL}/Auth`;
+  // If server did not respond.
   else if (response.status === 500)
     throw new Error("API failed to load respone.");
 

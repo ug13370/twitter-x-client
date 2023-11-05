@@ -10,6 +10,9 @@ export const createNewUser = (payload: any) => {
 };
 
 export const loginUser = (payload: any) => {
-  console.log(process.env);
   return fetchApi(`${apiUrl}/login`, "POST", headers, payload);
+};
+
+export const logoutUser = () => {
+  return fetchApi(`${apiUrl}/logout`, "POST", headers);
 };

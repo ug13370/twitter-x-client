@@ -45,7 +45,7 @@ const styles = () => {
       },
     },
     tweetsSection: {
-      width: "40rem",
+      maxWidth: "40rem",
       // borderStyle: "solid",
       // borderWidth: "0px 1px 0px 1px",
     },
