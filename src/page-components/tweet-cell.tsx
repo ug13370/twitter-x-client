@@ -9,7 +9,7 @@ import moment from "moment";
 import NewPost from "./new-post";
 import { LogoComponent } from ".";
 import { ThemeSettings } from "../theme";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ButtonComponent } from "../core-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AppContext from "../utils/contexts/App/AppContext";

@@ -1,6 +1,6 @@
 import { LogoComponent } from ".";
 import { ThemeSettings } from "../theme";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { ButtonComponent, PopoverComponent } from "../core-components";
 import { Avatar, Box, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
