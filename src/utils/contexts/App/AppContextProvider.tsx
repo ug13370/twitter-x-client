@@ -3,7 +3,7 @@ import AppContext from "./AppContext";
 import { logoutUser } from "../../../apis/auth";
 
 export const AppContextProvider = ({ children }: any) => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [loggingOut, setLoggingOut] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [updateTimeline, setUpdateTimeline] = useState(false);
