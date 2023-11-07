@@ -75,6 +75,7 @@ const NavBarSection = (props: any) => {
     {
       id: "profile",
       type: "router",
+      disabled: true,
       label: "Profile",
       onClick: () => {
         navigate("/Profile");
@@ -164,7 +165,7 @@ const Landing = (props: any) => {
         {location.pathname === "/Home" && (
           <HomePage sx={styles().tweetsSection} />
         )}
-        {location.pathname === "/Profile" && <ProfilePage />}
+        {/* {location.pathname === "/Profile" && <ProfilePage />} */}
 
         {!mdMatches && (
           <WhoToFollowCardComponent

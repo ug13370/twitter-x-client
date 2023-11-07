@@ -40,8 +40,10 @@ const SingleNav = (props: any) => {
           fullWidth={false}
           typography="normalButton"
           onClick={() => {
-            navigate(`/${nav.label}`);
-            setActiveNav(nav.id);
+            if (!nav.disabled) {
+              navigate(`/${nav.label}`);
+              setActiveNav(nav.id);
+            }
           }}
           showJustIcon={showJustIcons}
           active={activeNav === nav.id}
