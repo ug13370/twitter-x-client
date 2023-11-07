@@ -4,6 +4,10 @@
 
 **Introducing TwitterX:** a lively social app highlighting my **full-stack** abilities. Users enjoy easy **sign-up**, personalized **profiles**, and creating **tweets** with **images**. They can **follow**, **like**, and **comment**, boosting interaction. The timeline shares updates from followed accounts. **Dark mode** improves usability, while the activity feed keeps users informed. Built with **React**, **Node.js**, **Express**, and **MongoDB**, TwitterX demonstrates my knack for crafting strong user-focused apps. Join [TwitterX](https://twitterx-frontend-utkarsh-gupta.netlify.app) to see how I bring together frontend and backend expertise in this internal project.
 
+## Hostings
+
+**[Netlify](https://www.netlify.com/)** hosts the frontend code, **[Render](https://render.com/)** hosts the backend code, and **[Atlas Cloud](https://www.mongodb.com/atlas/database)** hosts the database.
+
 ## Project Objectives
 
 1. **User Registration / Authentication** :
