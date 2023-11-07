@@ -2,9 +2,9 @@ import { ThemeSettings } from "../theme";
 import NewPost from "../page-components/new-post";
 import { Box, Divider, Typography } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
-import { DataNotFoundComponent } from "../core-components";
-import { createANewTweet, fetchTimeline, giveFeedback } from "../apis/home";
 import { useContext, useEffect, useRef, useState } from "react";
+import { ButtonComponent, DataNotFoundComponent } from "../core-components";
+import { createANewTweet, fetchTimeline, giveFeedback } from "../apis/home";
 import { TweetCellComponent, TweetSkeletonComponent } from "../page-components";
 
 const styles = (themeSettings: any) => {
@@ -12,8 +12,21 @@ const styles = (themeSettings: any) => {
     root: {
       display: "flex",
       flexDirection: "column",
-      ".header": {
-        padding: "1.2rem",
+      ".tweet-head-bar": {
+        position: "relative",
+        ".header": {
+          padding: "1.2rem",
+        },
+        ".show-box-shadow": {
+          boxShadow: "0 6px 3px -3px rgba(0,0,0,0.2)",
+        },
+        ".update-timeline": {
+          position: "absolute",
+          bottom: "-1rem",
+          left: "50%",
+          transform: "translate(-50%,100%)",
+          zIndex: 999999,
+        },
       },
       ".tweets": {
         flex: 1,
@@ -23,12 +36,7 @@ const styles = (themeSettings: any) => {
         "> *.tweetCell": {
           margin: "1.2rem",
         },
-        "> *.divider": {
-          // margin: "0rem 2.8rem",
-        },
-      },
-      ".show-box-shadow": {
-        boxShadow: "0 6px 3px -3px rgba(0,0,0,0.2)",
+        "> *.divider": {},
       },
     },
   };
@@ -109,7 +117,7 @@ const HomePage = (props: any) => {
   const [creatingANewComment, setCreatingANewComment] = useState(false);
 
   // Contexts
-  const { theme } = useContext(AppContext);
+  const { theme, updateTimeline, setUpdateTimeline } = useContext(AppContext);
 
   // Refs
   const newPostRef: any = useRef(null);
@@ -119,6 +127,7 @@ const HomePage = (props: any) => {
   }, []);
 
   const apiCall_fetchMyTimeLine = () => {
+    setUpdateTimeline(false);
     setTimelineFetching(true);
     fetchTimeline()
       .then((res: any) => {
@@ -173,13 +182,27 @@ const HomePage = (props: any) => {
     <Box sx={{ display: "flex" }}>
       <Divider orientation="vertical" />
       <Box sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}>
-        <Header className="header" />
-        <NewPost
-          ref={newPostRef}
-          className="show-box-shadow"
-          creatingTweet={creatingANewTweet}
-          apiCall_createANewTweet={apiCall_createANewTweet}
-        />
+        <Box className="tweet-head-bar">
+          <Header className="header" />
+          <NewPost
+            ref={newPostRef}
+            className="show-box-shadow"
+            creatingTweet={creatingANewTweet}
+            apiCall_createANewTweet={apiCall_createANewTweet}
+          />
+          {updateTimeline && (
+            <ButtonComponent
+              padding={0.6}
+              fullWidth={false}
+              borderRadius={10}
+              variant="contained"
+              className="update-timeline"
+              onClick={apiCall_fetchMyTimeLine}
+            >
+              Update your timeline
+            </ButtonComponent>
+          )}
+        </Box>
         <Box className="tweets">
           {timelineFetching && <TimelineLoader />}
           {!timelineFetching && (

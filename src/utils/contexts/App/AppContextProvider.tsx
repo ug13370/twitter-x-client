@@ -6,6 +6,7 @@ export const AppContextProvider = ({ children }: any) => {
   const [theme, setTheme] = useState("dark");
   const [loggingOut, setLoggingOut] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [updateTimeline, setUpdateTimeline] = useState(false);
 
   const logoutUserHandler = () => {
     setLoggingOut(true);
@@ -29,7 +30,9 @@ export const AppContextProvider = ({ children }: any) => {
         loggingOut,
         userDetails,
         setUserDetails,
+        updateTimeline,
         logoutUserHandler,
+        setUpdateTimeline,
       }}
     >
       {children}

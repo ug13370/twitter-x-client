@@ -69,12 +69,17 @@ const SingleUserToFollow = (props: any) => {
   const [followingUser, setFollowingUser] = useState(false);
   const [unfollowingUser, setUnfollowingUser] = useState(false);
 
+  const { setUpdateTimeline } = useContext(AppContext);
+
   const handleFollowButtonClick = () => {
     setFollowingUser(true);
     let payload = { followee_user_id: userId };
     followUser(payload)
       .then((res: any) => {
-        if (res.status === "success") userFollowed(userId);
+        if (res.status === "success") {
+          userFollowed(userId);
+          setUpdateTimeline(true);
+        }
       })
       .catch((err: any) => {
         console.log(err);
@@ -89,7 +94,10 @@ const SingleUserToFollow = (props: any) => {
     let payload = { followee_user_id: userId };
     unfollowUser(payload)
       .then((res: any) => {
-        if (res.status === "success") userUnfollowed(userId);
+        if (res.status === "success") {
+          userUnfollowed(userId);
+          setUpdateTimeline(true);
+        }
       })
       .catch((err: any) => {
         console.log(err);
