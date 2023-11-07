@@ -1,7 +1,6 @@
-import { Box, Skeleton } from "@mui/material";
-import { ThemeSettings } from "../theme";
-import { theme } from "../theme/theme";
 import { useContext } from "react";
+import { ThemeSettings } from "../theme";
+import { Box, Skeleton } from "@mui/material";
 import AppContext from "../utils/contexts/App/AppContext";
 
 const styles = (themeSettings: any) => {

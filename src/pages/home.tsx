@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { ThemeSettings } from "../theme";
 import NewPost from "../page-components/new-post";
 import { Box, Divider, Typography } from "@mui/material";
