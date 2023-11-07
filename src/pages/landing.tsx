@@ -4,7 +4,6 @@ import {
   WhoToFollowCardComponent,
 } from "../page-components";
 import HomePage from "./home";
-import ProfilePage from "./profile";
 import HomeIcon from "@mui/icons-material/Home";
 import { Box, useMediaQuery } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
