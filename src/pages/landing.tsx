@@ -4,11 +4,12 @@ import {
   WhoToFollowCardComponent,
 } from "../page-components";
 import HomePage from "./home";
-import { useContext } from "react";
 import ProfilePage from "./profile";
 import HomeIcon from "@mui/icons-material/Home";
 import { Box, useMediaQuery } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import { fecthUsersThatUCanFollow } from "../apis/home";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../utils/contexts/App/AppContext";
 import AccountMenu from "../page-components/account-menu";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
@@ -51,6 +52,7 @@ const styles = () => {
     },
     whoToFollow: {
       margin: "1rem 1rem 0rem 0rem",
+      alignSelf: "flex-start",
     },
   };
 };
@@ -96,9 +98,48 @@ const Landing = (props: any) => {
   const lgMatches = useMediaQuery((theme: any) => theme.breakpoints.down("lg"));
   const mdMatches = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
 
+  const [usersToFollow, setUsersToFollow] = useState([]);
+  const [fetchingUsersToFollow, setFetchingUsersToFollow] = useState(false);
+
   const location = useLocation();
 
   const { userDetails } = useContext(AppContext);
+
+  useEffect(() => {
+    apiCall_fecthAllUsersWhomUCanFollow();
+  }, []);
+
+  const userFollowed = (followedUserID: string) => {
+    setUsersToFollow((prevUsersToFollow: any): any => {
+      prevUsersToFollow.forEach((user: any, index: number) => {
+        if (user.user_id === followedUserID) user.following = true;
+      });
+      return [...prevUsersToFollow];
+    });
+  };
+
+  const userUnfollowed = (unfollowedUserID: string) => {
+    setUsersToFollow((prevUsersToFollow: any): any => {
+      prevUsersToFollow.forEach((user: any, index: number) => {
+        if (user.user_id === unfollowedUserID) user.following = false;
+      });
+      return [...prevUsersToFollow];
+    });
+  };
+
+  const apiCall_fecthAllUsersWhomUCanFollow = () => {
+    setFetchingUsersToFollow(true);
+    fecthUsersThatUCanFollow()
+      .then((res: any) => {
+        setUsersToFollow(res.details);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setFetchingUsersToFollow(false);
+      });
+  };
 
   return (
     <>
@@ -129,6 +170,10 @@ const Landing = (props: any) => {
           <WhoToFollowCardComponent
             lgMatches={lgMatches}
             sx={styles().whoToFollow}
+            userFollowed={userFollowed}
+            usersToFollow={usersToFollow}
+            userUnfollowed={userUnfollowed}
+            fetchingUsersToFollow={fetchingUsersToFollow}
           />
         )}
       </Box>

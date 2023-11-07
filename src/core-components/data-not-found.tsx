@@ -24,19 +24,28 @@ const styles = (themeSettings: any) => {
         alignItems: "center",
         flexDirection: "column",
         justifyContent: "center",
+        "> *": { textAlign: "center" },
       },
     },
   };
 };
 
 const DataNotFoundComponent = (props: any) => {
-  const { message = "No Data Found", subMessage = "" } = props;
+  const {
+    sx = {},
+    className = "",
+    subMessage = "",
+    message = "No Data Found",
+  } = props;
 
   // Contexts
   const { theme } = useContext(AppContext);
 
   return (
-    <Box sx={{ ...styles(ThemeSettings(theme)).root }}>
+    <Box
+      className={className}
+      sx={{ ...sx, ...styles(ThemeSettings(theme)).root }}
+    >
       <FolderOffOutlinedIcon className="no-data-found-icon" />
       <Box className="content">
         {message !== "" && <Typography variant="h5">{message}</Typography>}

@@ -7,7 +7,6 @@ const styles = (themeSettings: any) => {
   return {
     root: {
       margin: "1.2rem",
-
       display: "flex",
       flexDirection: "column",
       gap: "1rem",
